@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.daotong.springboot.service.infrastructure.persistence.mybatis.CarMapper">
+    <sql id="select_car">
+        car.id,
+        car.merchant_code merchantCode,
+        car.code,
+        car.car_model_code carModelCode
+    </sql>
+
+    <select id="getByCode" resultType="com.daotong.springboot.service.domain.repository.CarDO">
+        select
+        <include refid="select_car"></include>
+        from tms_car car
+        where code = #{code}
+    </select>
+</mapper>
