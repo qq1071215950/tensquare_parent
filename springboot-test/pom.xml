@@ -27,7 +27,7 @@
         <mybatis-spring-boot-starter.version>2.0.1</mybatis-spring-boot-starter.version>
         <mybatis-typehandlers-jsr310.version>1.0.2</mybatis-typehandlers-jsr310.version>
 
-        <spring-boot-swagger-starter.version>0.0.1-SNAPSHOT</spring-boot-swagger-starter.version>
+        <spring-boot-swagger-starter.version>2.1.1.RELEASE</spring-boot-swagger-starter.version>
         <mybatis-spring.version>2.0.1</mybatis-spring.version>
 
         <fastjson.version>1.2.50</fastjson.version>
@@ -122,8 +122,8 @@
         </dependency>
 
         <dependency>
-            <groupId>org.allenwang.frameworker</groupId>
-            <artifactId>spring-boot-swagger-starter</artifactId>
+            <groupId>cn.songxinqiang</groupId>
+            <artifactId>swagger-spring-boot-starter-ui</artifactId>
             <version>${spring-boot-swagger-starter.version}</version>
         </dependency>
 
