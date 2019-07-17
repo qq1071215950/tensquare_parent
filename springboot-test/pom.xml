@@ -32,6 +32,7 @@
 
         <fastjson.version>1.2.50</fastjson.version>
         <commons-codec.version>1.12</commons-codec.version>
+        <apache.version>3.7</apache.version>
     </properties>
 
     <dependencies>
@@ -85,16 +86,13 @@
         </dependency>
 
         <!-- guava -->
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava-base</artifactId>
-            <version>${guava.version}</version>
-        </dependency>
 
+
+        <!-- apache -->
         <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava-collections</artifactId>
-            <version>${guava.version}</version>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>${apache.version}</version>
         </dependency>
 
         <dependency>

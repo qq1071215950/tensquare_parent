@@ -1,6 +1,6 @@
-package com.daotong.springboot.service.infrastructure.persistence.mybatis;
+package com.daotong.springboot.service.infrastructure.persistence.mybatis.mapper;
 
-import com.daotong.springboot.service.domain.repository.CarDO;
+import com.daotong.springboot.service.infrastructure.persistence.mybatis.dataobject.CarDO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 

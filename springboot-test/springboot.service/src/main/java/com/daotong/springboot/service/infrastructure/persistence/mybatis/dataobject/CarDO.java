@@ -1,4 +1,4 @@
-package com.daotong.springboot.service.domain.repository;
+package com.daotong.springboot.service.infrastructure.persistence.mybatis.dataobject;
 
 import lombok.Data;
 

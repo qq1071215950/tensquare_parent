@@ -19,7 +19,7 @@ import java.io.IOException;
  * @date 2019/07/14
  */
 @Configuration
-@MapperScan(basePackages = "com.daotong.springboot.service.infrastructure.persistence.mybatis")
+@MapperScan(basePackages = "com.daotong.springboot.service.infrastructure.persistence.mybatis.mapper")
 public class TestMybatisConfig {
 
     @Resource
