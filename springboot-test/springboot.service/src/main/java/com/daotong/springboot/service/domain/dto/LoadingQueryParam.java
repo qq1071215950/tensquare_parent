@@ -38,4 +38,12 @@ public class LoadingQueryParam {
     private String driverName;
 
     private String tel;
+    /**
+     * 当前页码
+     */
+    private Integer curPage;
+    /**
+     * 每页展示数量
+     */
+    private Integer pageSize;
 }

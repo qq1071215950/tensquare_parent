@@ -4,6 +4,7 @@ import com.daotong.springboot.service.domain.enums.LoadingEnum;
 import com.daotong.springboot.service.domain.model.LoadingStation;
 import com.daotong.springboot.service.domain.model.Station;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.List;
  *
  * @author Zdh 2019/12/5 16:07
  */
+@Data
 public class LoadingDTO {
     private Integer id;
     private String loadingNo;

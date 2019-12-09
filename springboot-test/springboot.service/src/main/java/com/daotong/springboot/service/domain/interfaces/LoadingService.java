@@ -33,7 +33,7 @@ public interface LoadingService {
      * @param loadingId
      * @return
      */
-    int deleteLoading(Integer loadingId);
+    void deleteLoading(Integer loadingId);
 
     /**
      * 手动设置完成运单

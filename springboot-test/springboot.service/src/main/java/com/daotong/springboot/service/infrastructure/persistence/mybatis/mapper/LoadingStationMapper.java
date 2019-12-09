@@ -60,5 +60,12 @@ public interface LoadingStationMapper {
      *
      * @param loadingId
      */
-    void setManualComplete(Integer loadingId);
+    void setManualComplete(@Param(value = "loadingId") Integer loadingId);
+
+    /**
+     * 根据运单id删除相关记录
+     *
+     * @param loadingId
+     */
+    void removeLoadingStation(@Param(value = "loadingId") Integer loadingId);
 }

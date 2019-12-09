@@ -2,6 +2,7 @@ package com.daotong.springboot.service.infrastructure.persistence.mybatis.mapper
 
 import com.daotong.springboot.service.domain.dto.LoadingDTO;
 import com.daotong.springboot.service.domain.dto.LoadingQueryParam;
+import com.github.pagehelper.Page;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -27,7 +28,7 @@ public interface LoadingMapper {
      * @param loadingQueryParam
      * @return
      */
-    List<LoadingDTO> getByQueryParam(LoadingQueryParam loadingQueryParam);
+    Page<LoadingDTO> getByQueryParam(LoadingQueryParam loadingQueryParam);
 
     /**
      * 根据id删除运单

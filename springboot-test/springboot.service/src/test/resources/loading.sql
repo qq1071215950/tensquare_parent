@@ -10,15 +10,17 @@ Target Server Type    : MYSQL
 Target Server Version : 50549
 File Encoding         : 65001
 
-Date: 2019-12-09 09:35:28
+Date: 2019-12-09 14:51:47
 */
+
+SET FOREIGN_KEY_CHECKS=0;
 
 -- ----------------------------
 -- Table structure for t_loading
 -- ----------------------------
 DROP TABLE IF EXISTS `t_loading`;
 CREATE TABLE `t_loading` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `loading_no` varchar(32) NOT NULL COMMENT '运输单号',
   `send_station_id` int(11) NOT NULL COMMENT '首发站点',
   `end_station_id` int(11) NOT NULL COMMENT '末站点',
@@ -42,8 +44,9 @@ CREATE TABLE `t_loading` (
   `createor` varchar(16) DEFAULT NULL COMMENT '创建人',
   `modifier` varchar(16) DEFAULT NULL COMMENT '修改人',
   `gmt_create` datetime DEFAULT NULL COMMENT '创建时间',
-  `gmt_modified` datetime DEFAULT NULL COMMENT '修改时间'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `gmt_modified` datetime DEFAULT NULL COMMENT '修改时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_loading
@@ -58,7 +61,7 @@ CREATE TABLE `t_loadingstation` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `loading_id` int(11) NOT NULL COMMENT '运单id',
   `station_id` int(11) NOT NULL COMMENT '站点id',
-  `station_status` varchar(16) NOT NULL COMMENT '站点状态',
+  `station_status` varchar(16) DEFAULT NULL COMMENT '站点状态',
   `seq` int(11) DEFAULT NULL,
   `plan_arrival_time` datetime NOT NULL COMMENT '计划到达时间',
   `plan_send_time` datetime NOT NULL COMMENT '计划发车时间',
