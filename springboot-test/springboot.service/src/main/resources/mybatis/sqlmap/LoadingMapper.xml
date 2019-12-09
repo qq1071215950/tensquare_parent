@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.daotong.springboot.service.infrastructure.persistence.mybatis.mapper.LoadingMapper">
+    <!--创建订单-->
+    <insert id="saveLoading" parameterType="loadingDTO">
+        insert into t_loading( loading_no,
+                                send_station_id,
+                                end_station_id,
+                                line_name,
+                                station_count,
+                                plan_arrival_time,
+                                plan_send_time,
+                                plan_complate_time,
+                                saler,
+                                forwarder,
+                                plateNo,
+                                temperature_layer,
+                                driver_name,
+                                tel)
+                values (#{loadingNo},
+                        #{sendStationId},
+                        #{endStationId},
+                        #{lineName},
+                        #{stationCount},
+                        #{planArrivalTime},
+                        #{planSendTime},
+                        #{planComplateTime},
+                        #{saler},
+                        #{forwarder},
+                        #{plateNo},
+                        #{temperatureLayer},
+                        #{driverName},
+                        #{tel})
+    </insert>
+    <!--查询订单-->
+    <select id="getByQueryParam" parameterType="loadingQueryParam" resultMap="loadingMap">
+      select id,saler,
+            loading_no,
+            line_name,
+            actual_send_time,
+            plan_send_time,
+            plan_complate_time,
+            temperature_layer,
+            price_quote，
+            transfer_type，
+            forwarder，
+            plate_no，
+            driver_name,
+            tel
+              from t_loading
+              <where>
+                  <if test="loadingNo!=null and loadingNo!=''">
+                      loading_no=#{loadingNo}
+                  </if>
+                  <if test="sendStationId!=null">
+                      and send_station_id=#{sendStationId}
+                  </if>
+                  <if test="endStationId!=null">
+                      and end_station_id=#{endStationId}
+                  </if>
+                  <if test="lineName!=null and lineName!=''">
+                      and line_name=#{lineName}
+                  </if>
+                  <if test="planSendTime!=null">
+                      and plan_send_time=#{planSendTime}
+                  </if>
+                  <if test="planComplateTime!=null">
+                      and plan_complate_time=#{planComplateTime}
+                  </if>
+                  <if test="loadingEnum!=null and loadingEnum!=''">
+                      and loading_state=#{loadingEnum}
+                  </if>
+                  <if test="saler!=null and saler!=''">
+                      and saler=#{saler}
+                  </if>
+                  <if test="forwarder!=null and forwarder!=''">
+                      and forwarder=#{forwarder}
+                  </if>
+                  <if test="plateNo!=null and plateNo!=''">
+                      and plate_no=#{plateNo}
+                  </if>
+                  <if test="temperatureLayer!=null and temperatureLayer!=''">
+                      and temperature_layer=#{temperatureLayer}
+                  </if>
+                  <if test="driverName!=null and driverName!=''">
+                      and driver_name=#{driverName}
+                  </if>
+                  <if test="tel!=null and tel!=''">
+                      and tel=#{tel}
+                  </if>
+              </where>
+    </select>
+    <!--根据id删除运单-->
+    <delete id="deleteLoading" parameterType="int">
+        delete from t_loading where id=#{loadingId}
+    </delete>
+    <!--手动完成运单-->
+    <update id="manualComplete">
+      update t_loading set loading_state='manualComplate',actual_complate_time=#{complateTime} where id=#{loadingId}
+    </update>
+</mapper>

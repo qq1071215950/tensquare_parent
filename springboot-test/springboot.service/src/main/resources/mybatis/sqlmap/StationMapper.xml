@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.daotong.springboot.service.infrastructure.persistence.mybatis.mapper.StationMapper">
+    <!--增加站点-->
+    <insert id="saveStation" parameterType="stationDTO">
+        insert into t_station(code,
+                                name,
+                                province_name,
+                                city_name,
+                                area_name)
+                        values(#{code},
+                                #{name},
+                                #{provinceName},
+                                #{cityName},
+                                #{areaName})
+    </insert>
+    <!--删除站点-->
+    <delete id="removeStation" parameterType="int">
+        delete from t_station where id=#{id}
+    </delete>
+    <!--更新站点-->
+    <update id="updateStation" parameterType="stationDTO">
+        update t_station
+        <set>
+            <if test="code!=null and code!=''">
+                code=#{code},
+            </if>
+            <if test="name!=null and name!=''">
+                name=#{name},
+            </if>
+            <if test="provinceName!=null and provinceName!=''">
+                province_name=#{provinceName},
+            </if>
+            <if test="cityName!=null and cityName!=''">
+                city_name=#{cityName},
+            </if>
+            <if test="areaName!=null and areaName!=''">
+                area_name=#{areaName}
+            </if>
+        </set>
+        where id=#{id}
+    </update>
+    <!--查询站点列表-->
+    <select id="getStationList" parameterType="stationDTO" resultType="stationDTO">
+        select id,
+        code,
+        name,
+        province_name,
+        city_name,area_name
+        from t_station
+        <where>
+            <if test="code!=null and code!=''">
+                and code=#{code}
+            </if>
+            <if test="name!=null and name!=''">
+                and name=#{name}
+            </if>
+            <if test="provinceName!=null and provinceName!=''">
+                and province_name=#{provinceName}
+            </if>
+            <if test="cityName!=null and cityName!=''">
+                and city_name=#{cityName}
+            </if>
+            <if test="areaName!=null and areaName!=''">
+                and area_name=#{areaName}
+            </if>
+        </where>
+    </select>
+    <!--根据id 查询-->
+    <select id="getByStationId" parameterType="int" resultType="stationDTO">
+        select id,code,name,province_name,city_name,area_name from t_station where id=#{stationId}
+    </select>
+    <!--根据运单号查询站点信息和状态-->
+    <select id="getByLoadingId" parameterType="int" resultMap="stationMap">
+       select s.name,
+              s.id,
+              lt.station_status ,
+              lt.seq,
+              lt.plan_arrival_time,
+              lt.plan_send_time,
+              lt.actual_arrival_time,
+              lt.actual_send_time
+              from t_station s
+			  left join t_loading_station ls on s.id= ls.station_id
+				    join t_loadingstation lt on lt.station_id=s.id
+                  where lt.loading_id=#{loadingId}
+    </select>
+    <resultMap id="stationMap" type="stationDTO">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <collection property="loadingStation" javaType="loadingStationDTO">
+            <result column="station_status" property="stationStatus"/>
+            <result column="seq" property="seq"/>
+            <result column="plan_arrival_time" property="planArrivalTime"/>
+            <result column="plan_send_time" property="planSendTime"/>
+            <result column="actual_arrival_time" property="actualArrivalTime"/>
+            <result column="actual_send_time" property="actualSendTime"/>
+            <result column="station_status" property="stationStatus" ></result>
+        </collection>
+    </resultMap>
+</mapper>
