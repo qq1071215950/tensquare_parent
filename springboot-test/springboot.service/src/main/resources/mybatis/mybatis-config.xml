@@ -28,6 +28,11 @@
 		<!-- 开启驼峰，开启后，只要数据库字段和对象属性名字母相同，无论中间加多少下划线都可以识别 -->
 		<setting name="mapUnderscoreToCamelCase" value="true" />
 	</settings>
+	<!--配置参数类型简写-->
+	<typeAliases>
+		<package name="com.daotong.springboot.service.domain"/>
+	</typeAliases>
+	<!--配置数据源-->
 
 	<!-- 配置mybatis的分页插件PageHelper -->
 

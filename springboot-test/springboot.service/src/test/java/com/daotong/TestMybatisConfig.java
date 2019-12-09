@@ -33,13 +33,13 @@ public class TestMybatisConfig {
         EmbeddedDatabaseBuilder databaseBuilder = new EmbeddedDatabaseBuilder();
         return databaseBuilder
             .setType(EmbeddedDatabaseType.H2)
-
-            .addScript("classpath:ddl/h2_config.sql")
-            //启动时初始化建表语句
+                .addScript("classpath:loading.sql")
+                .addScript("classpath:ddl/h2_config.sql")
+           /* //启动时初始化建表语句
             .addScript("classpath:ddl/tms_car.sql")
 
             // dml
-            .addScript("classpath:dml/tms_car_init.sql")
+            .addScript("classpath:dml/tms_car_init.sql")*/
             .build();
     }
 

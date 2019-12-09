@@ -1,8 +1,9 @@
 package com.daotong.springboot.web;
 
-import org.allenwang.frameworker.swagger.EnableSwaggerDoc;
+import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
  * @author 陈井彬
@@ -13,11 +14,10 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
         "com.daotong.springboot"
     }
 )
-@EnableSwaggerDoc
+@EnableSwagger2
 @EnableAspectJAutoProxy(proxyTargetClass = true)
 public class Application {
-
     public static void main(String[] args) {
-
+        SpringApplication.run(Application.class);
     }
 }

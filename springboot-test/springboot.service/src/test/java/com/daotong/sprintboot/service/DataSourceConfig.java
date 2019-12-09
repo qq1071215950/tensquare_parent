@@ -25,7 +25,8 @@ public class DataSourceConfig {
             .setType(EmbeddedDatabaseType.H2)
             .addScript("classpath:ddl/h2_config.sql")
             .addScript("classpath:ddl/tms_car.sql")
-
+            .addScript("classpath:loading.sql")
+            .addScript("classpath:dml/t_station.sql")
             .addScript("classpath:dml/tms_car_init.sql")
             .build();
     }
