@@ -49,10 +49,10 @@ public interface StationMapper {
     /**
      * 通过运单号获取运单包含的站点信息
      *
-     * @param loadingNo
+     * @param loadingId
      * @return
      */
-    List<StationDTO> getByLoadingNo(@Param(value = "loadingNo") String loadingNo);
+    List<StationDTO> getByLoadingId(@Param(value = "loadingId") Integer loadingId);
 
     /**
      * 根据站点id

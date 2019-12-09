@@ -4,19 +4,17 @@ import com.daotong.springboot.service.base.RestResponse;
 import com.daotong.springboot.service.domain.dto.StationDTO;
 import com.daotong.springboot.service.domain.interfaces.StationService;
 import com.daotong.springboot.service.domain.vo.StationVO;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
-import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
  * @author Zdh 2019/12/6 10:52
  */
-@ApiModel(value = "控制层")
+@Api(description = "站点接口详情",value = "API-StationController")
 @RestController
 @RequestMapping("/station")
 public class StationController {
@@ -40,8 +38,8 @@ public class StationController {
     @GetMapping("/remove")
     @ApiOperation(httpMethod = "get", value = "删除站点信息", notes = "返回数据为受影响的行数")
     public RestResponse removeStation(@ApiParam(name = "stationId", value = "站点id", required = true)
-                                      @RequestParam("id") Integer id) {
-        int i = stationService.removeStation(id);
+                                      @RequestParam("id")@NotNull Integer stationId) {
+        int i = stationService.removeStation(stationId);
         return RestResponse.single(i);
     }
 
@@ -52,10 +50,10 @@ public class StationController {
         return RestResponse.single(stationList);
     }
 
-    @GetMapping("/get_by_load_no")
-    public RestResponse getListByLoadingNo(@ApiParam(name = "loadingNo", value = "运单号", required = true)
-                                               @RequestParam(value = "loadingNo") String loadingNo) {
-        List<StationVO> byLoadingNo = stationService.getByLoadingNo(loadingNo);
+    @GetMapping("/get_by_load_id")
+    public RestResponse getListByLoadingNo(@ApiParam(name = "loadingId", value = "运单Id", required = true)
+                                               @RequestParam(value = "loadingId")@NotNull Integer loadingId) {
+        List<StationVO> byLoadingNo = stationService.getByLoadingId(loadingId);
         return RestResponse.single(byLoadingNo);
     }
 }

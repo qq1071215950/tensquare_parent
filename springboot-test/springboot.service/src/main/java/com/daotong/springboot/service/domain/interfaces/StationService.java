@@ -50,10 +50,10 @@ public interface StationService {
     /**
      * 通过运单号获取运单包含的站点信息
      *
-     * @param loadingNo
+     * @param loadingId
      * @return
      */
-    List<StationVO> getByLoadingNo(String loadingNo);
+    List<StationVO> getByLoadingId(Integer loadingId);
 
     /**
      * 根据站点id

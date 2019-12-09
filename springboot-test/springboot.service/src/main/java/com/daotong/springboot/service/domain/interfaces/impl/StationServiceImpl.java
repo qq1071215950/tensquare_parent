@@ -66,12 +66,12 @@ public class StationServiceImpl implements StationService {
     }
 
     @Override
-    public List<StationVO> getByLoadingNo(String loadingNo) {
-        //非空判断
-        if(StringUtils.isEmpty(loadingNo)){
+    public List<StationVO> getByLoadingId(Integer loadingId) {
+        //校验
+        if(loadingId<1){
             throw new IllegalArgumentException("IllegalArg");
         }
-        List<StationDTO> byLoadingNo = stationMapper.getByLoadingNo(loadingNo);
+        List<StationDTO> byLoadingNo = stationMapper.getByLoadingId(loadingId);
         ArrayList<StationVO> stations = new ArrayList<>();
         for (StationDTO stationDTO : byLoadingNo) {
             StationVO transform = StationTranslator.transform(stationDTO);
