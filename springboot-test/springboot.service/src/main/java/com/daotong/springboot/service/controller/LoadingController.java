@@ -41,7 +41,7 @@ public class LoadingController {
         return RestResponse.single(byQueryParam);
     }
     @ApiOperation(httpMethod = "GET",value = "手动完成运单接口")
-    @GetMapping
+    @GetMapping("/manual_complete")
     public RestResponse manualComplete(@ApiParam(value = "运单id") @RequestParam(value = "loadingId") Integer loadingId,
                                        @ApiParam(value = "当前时间")@RequestParam(value = "currentTime") LocalDateTime currentTime){
         loadingService.manualComplete(loadingId,currentTime);
