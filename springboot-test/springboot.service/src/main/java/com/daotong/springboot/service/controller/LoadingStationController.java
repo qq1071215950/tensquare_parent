@@ -1,6 +1,7 @@
 package com.daotong.springboot.service.controller;
 
 import com.daotong.springboot.service.base.RestResponse;
+import com.daotong.springboot.service.domain.dto.LoadingStationDTO;
 import com.daotong.springboot.service.domain.interfaces.LoadingStationService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -22,10 +23,8 @@ public class LoadingStationController {
     private LoadingStationService loadingStationService;
     @ApiOperation(httpMethod = "post",value = "到达首站更新运单站点状态以及时间")
     @PostMapping("/update_status")
-    public RestResponse updateArrivalTime(@ApiParam(value = "站点状态id") @RequestParam(value = "loadingStationId") Integer loadingStationId,
-                                          @ApiParam(value = "当前时间") @RequestParam(value = "currentTime") LocalDateTime currentTime,
-                                          @ApiParam(value = "站点序号") @RequestParam(value = "seq") Integer seq){
-        loadingStationService.updateStatus(loadingStationId,currentTime,seq);
+    public RestResponse updateArrivalTime(@RequestBody LoadingStationDTO loadingStationDTO){
+        loadingStationService.updateStatus(loadingStationDTO);
         return RestResponse.success();
     }
 }

@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 /**
  * @author Zdh 2019/12/6 15:19
@@ -15,11 +16,19 @@ import java.time.LocalDateTime;
 public class LoadingStationDTO {
     private Integer id;
 
+    private Integer loadingStationId;
+
     private Integer loadingId;
 
     private Integer stationId;
-
+    /**
+     * 当前站点状态序号
+     */
     private Integer seq;
+    /**
+     * 运单所有的站点序号集合
+     */
+    private ArrayList<Integer> seqs;
 
     private LocalDateTime planArrivalTime;
 

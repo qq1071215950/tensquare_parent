@@ -1,5 +1,6 @@
 package com.daotong.springboot.service.domain.interfaces;
 
+import com.daotong.springboot.service.domain.dto.LoadingStationDTO;
 import com.daotong.springboot.service.domain.model.LoadingStation;
 
 import java.time.LocalDateTime;
@@ -12,9 +13,7 @@ public interface LoadingStationService {
     /**
      * 进站出站时更新时间以及站点状态
      *
-     * @param loadingStationId
-     * @param currentTime
-     * @param seq
+     * @param loadingStationDTO
      */
-    void updateStatus(Integer loadingStationId, LocalDateTime currentTime, Integer seq);
+    void updateStatus(LoadingStationDTO loadingStationDTO);
 }
