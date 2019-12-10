@@ -65,4 +65,11 @@ public interface LoadingMapper {
     void updateActualCompleteTime(@Param(value = "loadingId") Integer loadingId,
                                   @Param(value = "actualCompleteTime") LocalDateTime actualCompleteTime);
 
+    /**
+     * 批量插入 运单站点关联表
+     *
+     * @param loadingId
+     * @param ids
+     */
+    void addStationMsg(@Param(value = "loadingId") Integer loadingId,@Param(value = "stationIds") List<Integer> ids);
 }

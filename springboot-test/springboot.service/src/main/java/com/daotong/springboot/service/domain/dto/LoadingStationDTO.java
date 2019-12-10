@@ -1,6 +1,7 @@
 package com.daotong.springboot.service.domain.dto;
 
 import com.daotong.springboot.service.domain.enums.LoadingStationEnum;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.Getter;
@@ -13,10 +14,9 @@ import java.util.ArrayList;
  * @author Zdh 2019/12/6 15:19
  */
 @Data
+@ApiModel(value = "运单站点控制层参数封装类")
 public class LoadingStationDTO {
     private Integer id;
-
-    private Integer loadingStationId;
 
     private Integer loadingId;
 

@@ -5,6 +5,7 @@ import com.daotong.springboot.service.domain.dto.LoadingQueryParam;
 import com.daotong.springboot.service.domain.dto.LoadingStationDTO;
 import com.daotong.springboot.service.domain.dto.StationDTO;
 import com.daotong.springboot.service.domain.enums.LoadingEnum;
+import com.daotong.springboot.service.domain.enums.LoadingStationEnum;
 import com.daotong.springboot.service.domain.interfaces.LoadingService;
 import com.daotong.springboot.service.infrastructure.persistence.mybatis.mapper.LoadingMapper;
 import com.daotong.springboot.service.infrastructure.persistence.mybatis.mapper.LoadingStationMapper;
@@ -16,9 +17,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 /**
  * @author Zdh 2019/12/6 17:52
@@ -33,12 +32,9 @@ public class LoadingServiceImpl implements LoadingService {
     private StationMapper stationMapper;
     @Override
     public int saveLoading(LoadingDTO loading) {
-        //设置首发站点终点站id
-        List<StationDTO> stations = loading.getStations();
-        Integer endStationId = stations.get(stations.size() - 1).getId();
-        Integer sendStationId = stations.get(0).getId();
-        loading.setSendStationId(sendStationId);
-        loading.setEndStationId(endStationId);
+        //随机生成UUID作为运单ID
+        Integer loadingId = getUUID();
+        loading.setLoadingId(loadingId);
         //生成运单号 字母拼接时间戳
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
         String timestamp = formatter.format(LocalDateTime.now());
@@ -47,10 +43,24 @@ public class LoadingServiceImpl implements LoadingService {
         //设置订单状态为初始化
         loading.setLoadingEnum(LoadingEnum.ARRIVAL);
         //设置计划首站发车时间
-        LoadingStationDTO startLoadingStation = stations.get(0).getLoadingStation();
-        loading.setPlanSendTime(startLoadingStation.getPlanSendTime());
+        loading.setPlanSendTime(loading.getPlanSendTime());
         //首站计划到达时间
-        loading.setPlanArrivalTime(startLoadingStation.getPlanArrivalTime());
+        loading.setPlanArrivalTime(loading.getPlanArrivalTime());
+        //运单-站点关联添加
+        List<StationDTO> stations = loading.getStations();
+        ArrayList<Integer> stationIds = new ArrayList<>();
+        if(stations==null){
+            throw new RuntimeException("Empty Stations");
+        }
+        for (int i = 0; i < stations.size(); i++) {
+            StationDTO station = stations.get(i);
+            stationIds.add(station.getId());
+            //运单站点状态初始化并更新到数据库
+            LoadingStationDTO loadingStation = station.getLoadingStation();
+            loadingStation.setStationStatus(LoadingStationEnum.UN_START.getStatus());
+            loadingStationMapper.addRelations(loadingStation);
+        }
+        loadingMapper.addStationMsg(loadingId,stationIds);
         int i = loadingMapper.saveLoading(loading);
         return i;
     }
@@ -76,6 +86,17 @@ public class LoadingServiceImpl implements LoadingService {
         loadingMapper.manualComplete(loadingId,completeTime);
         //运单站点表修改
         loadingStationMapper.setManualComplete(loadingId);
+    }
+
+    /**
+     * 生成随机ID
+     * @return
+     */
+    private Integer getUUID(){
+        UUID uuid=UUID.randomUUID();
+        String str = uuid.toString();
+        String replace = str.replace("-", "");
+        return Integer.valueOf(replace);
     }
 
 }

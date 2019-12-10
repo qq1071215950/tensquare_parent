@@ -1,6 +1,7 @@
 package com.daotong.springboot.service.domain.dto;
 
 import com.daotong.springboot.service.domain.enums.LoadingEnum;
+import io.swagger.annotations.ApiModel;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,7 +12,9 @@ import java.time.LocalDateTime;
  */
 @Setter
 @Getter
+@ApiModel(value = "运单查询条件封装类",description = "多条件组合查询")
 public class LoadingQueryParam {
+
     private Integer loadingId;
 
     private String loadingNo;

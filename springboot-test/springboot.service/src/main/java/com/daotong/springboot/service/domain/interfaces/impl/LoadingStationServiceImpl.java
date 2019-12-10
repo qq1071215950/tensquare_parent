@@ -36,7 +36,7 @@ public class LoadingStationServiceImpl implements LoadingStationService {
         //实际出发时间
         LocalDateTime actualSendTime = loadingStationDTO.getActualSendTime();
         //站点状态id
-        Integer loadingStationId = loadingStationDTO.getLoadingStationId();
+        Integer loadingStationId = loadingStationDTO.getId();
         //首站
         if(seq.equals(seqs.get(0))){
             updateToLoading(actualArrivalTime,actualSendTime,loadingStationId,loadingId);

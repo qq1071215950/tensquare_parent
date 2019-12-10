@@ -16,8 +16,10 @@ import java.util.List;
  */
 @Data
 public class LoadingDTO {
-    private Integer id;
+
     private String loadingNo;
+
+    private Integer loadingId;
 
     private Integer sendStationId;
 

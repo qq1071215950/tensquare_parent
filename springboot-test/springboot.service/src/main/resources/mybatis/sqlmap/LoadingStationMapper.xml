@@ -13,4 +13,19 @@
     <update id="setManualComplete">
         update t_loadingstation set station_status='arrived' where loading_id=#{loadingId}
     </update>
+    <!--运单创建时添加站点信息-->
+    <insert id="addRelations" parameterType="loadingStationDTO">
+        insert into t_loadingstation (loading_id,
+                                      station_id,
+                                      station_status,
+                                      seq,
+                                      plan_arrival_time,
+                                      plan_send_time)
+                 values (#{loadingId},
+                          #{stationId},
+                          #{stationStatus},
+                          #{seq},
+                          #{planArrivalTime},
+                          #{planSendTime})
+    </insert>
 </mapper>

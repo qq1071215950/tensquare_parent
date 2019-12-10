@@ -1,5 +1,6 @@
 package com.daotong.springboot.service.infrastructure.persistence.mybatis.mapper;
 
+import com.daotong.springboot.service.domain.dto.LoadingStationDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -35,4 +36,10 @@ public interface LoadingStationMapper {
      */
     void setManualComplete(@Param(value = "loadingId") Integer loadingId);
 
+    /**
+     * 运单创建时添加站点信息
+     *
+     * @param loadingStation
+     */
+    void addRelations(LoadingStationDTO loadingStation);
 }

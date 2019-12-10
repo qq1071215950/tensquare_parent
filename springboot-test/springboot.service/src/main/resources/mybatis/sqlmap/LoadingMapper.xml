@@ -3,7 +3,8 @@
 <mapper namespace="com.daotong.springboot.service.infrastructure.persistence.mybatis.mapper.LoadingMapper">
     <!--创建订单-->
     <insert id="saveLoading" parameterType="loadingDTO">
-        insert into t_loading( loading_no,
+        insert into t_loading( id,
+                                loading_no,
                                 send_station_id,
                                 end_station_id,
                                 line_name,
@@ -17,7 +18,8 @@
                                 temperature_layer,
                                 driver_name,
                                 tel)
-                values (#{loadingNo},
+                values (#{loadingId},
+                        #{loadingNo},
                         #{sendStationId},
                         #{endStationId},
                         #{lineName},
@@ -106,4 +108,11 @@
     <update id="updateActualCompleteTime">
         update t_loading set loading_state='complete',actual_complate_time=#{actualCompleteTime} where id=#{loadingId}
     </update>
+    <!--批量插入站点关联-->
+    <insert id="addStationMsg">
+        insert into t_loading_station (loading_id,station_id) values 
+        <foreach collection="stationIds" separator="," item="id">
+            (#{loadingId},id)
+        </foreach>
+    </insert>
 </mapper>
