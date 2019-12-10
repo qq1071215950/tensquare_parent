@@ -62,7 +62,7 @@ class StationMapperTest {
     }
     @Test
     void getByLoadingNoTest(){
-        List<StationDTO> byLoadingNo = stationMapper.getByLoadingNo("1113110851");
+        List<StationDTO> byLoadingNo = stationMapper.getByLoadingId(1);
         log.info(byLoadingNo.toString());
         Assert.assertNotNull("查询成功",byLoadingNo);
     }

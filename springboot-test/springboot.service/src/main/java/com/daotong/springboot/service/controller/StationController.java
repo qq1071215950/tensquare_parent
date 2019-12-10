@@ -22,21 +22,21 @@ public class StationController {
     private StationService stationService;
 
     @PostMapping("/save")
-    @ApiOperation(httpMethod = "post", value = "添加站点信息", code = 200, notes = "返回数据为受影响的行数")
+    @ApiOperation(httpMethod = "POST", value = "添加站点信息", code = 200, notes = "返回数据为受影响的行数")
     public RestResponse saveStation(@RequestBody StationDTO stationDTO) {
         int i = stationService.saveStation(stationDTO);
         return RestResponse.single(i);
     }
 
     @PostMapping("/update")
-    @ApiOperation(httpMethod = "post", value = "更新站点信息", notes = "返回数据为受影响的行数")
+    @ApiOperation(httpMethod = "POST", value = "更新站点信息", notes = "返回数据为受影响的行数")
     public RestResponse updateStation(@RequestBody StationDTO stationDTO) {
         int i = stationService.updateStation(stationDTO);
         return RestResponse.single(i);
     }
 
     @GetMapping("/remove")
-    @ApiOperation(httpMethod = "get", value = "删除站点信息", notes = "返回数据为受影响的行数")
+    @ApiOperation(httpMethod = "GET", value = "删除站点信息", notes = "返回数据为受影响的行数")
     public RestResponse removeStation(@ApiParam(name = "stationId", value = "站点id", required = true)
                                       @RequestParam("id")@NotNull Integer stationId) {
         int i = stationService.removeStation(stationId);
@@ -44,14 +44,15 @@ public class StationController {
     }
 
     @PostMapping("/get_by_page")
-    @ApiOperation(httpMethod = "post", value = "分页查询站点信息", notes = "分页结果")
+    @ApiOperation(httpMethod = "GET", value = "分页查询站点信息", notes = "分页结果")
     public RestResponse findByPage(@RequestBody StationDTO stationDTO) {
         List<StationVO> stationList = stationService.getStationList(stationDTO);
         return RestResponse.single(stationList);
     }
 
     @GetMapping("/get_by_load_id")
-    public RestResponse getListByLoadingNo(@ApiParam(name = "loadingId", value = "运单Id", required = true)
+    @ApiOperation(httpMethod = "GET", value = "通过loadingId获取运单信息")
+    public RestResponse getListByLoadingId(@ApiParam(name = "loadingId", value = "运单Id", required = true)
                                                @RequestParam(value = "loadingId")@NotNull Integer loadingId) {
         List<StationVO> byLoadingNo = stationService.getByLoadingId(loadingId);
         return RestResponse.single(byLoadingNo);

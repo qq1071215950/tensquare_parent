@@ -12,7 +12,6 @@ import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -28,20 +27,20 @@ public class LoadingController {
     @Autowired
     private LoadingStationService loadingStationService;
 
-    @ApiOperation(httpMethod = "post", value = "运单创建")
+    @ApiOperation(httpMethod = "POST", value = "运单创建")
     @PostMapping("/create")
     public RestResponse createLoading(@RequestBody LoadingDTO loadingDTO) {
         loadingService.saveLoading(loadingDTO);
         return RestResponse.success();
     }
 
-    @ApiOperation(httpMethod = "post", value = "根据条件查询运单")
+    @ApiOperation(httpMethod = "POST", value = "根据条件查询运单")
     @PostMapping("/query_by_condition")
     public RestResponse getByQueryParam(@RequestBody LoadingQueryParam loadingQueryParam) {
         List<LoadingDTO> byQueryParam = loadingService.getByQueryParam(loadingQueryParam);
         return RestResponse.single(byQueryParam);
     }
-    @ApiOperation(httpMethod = "get",value = "手动完成运单接口")
+    @ApiOperation(httpMethod = "GET",value = "手动完成运单接口")
     @GetMapping
     public RestResponse manualComplete(@ApiParam(value = "运单id") @RequestParam(value = "loadingId") Integer loadingId,
                                        @ApiParam(value = "当前时间")@RequestParam(value = "currentTime") LocalDateTime currentTime){

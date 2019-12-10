@@ -51,6 +51,12 @@
         </dependency>
         <!-- guava -->
 
+        <!--mysql-->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>RELEASE</version>
+        </dependency>
         <!-- mybatis -->
 
         <dependency>

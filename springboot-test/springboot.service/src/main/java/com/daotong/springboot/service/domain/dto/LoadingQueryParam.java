@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @Getter
 @ApiModel(value = "运单查询条件封装类",description = "多条件组合查询")
 public class LoadingQueryParam {
-
+    
     private Integer loadingId;
 
     private String loadingNo;
