@@ -21,7 +21,7 @@ import java.time.LocalDateTime;
 public class LoadingStationController {
     @Autowired
     private LoadingStationService loadingStationService;
-    @ApiOperation(httpMethod = "post",value = "到达首站更新运单站点状态以及时间")
+    @ApiOperation(httpMethod = "post",value = "到达站点更新状态以及时间")
     @PostMapping("/update_status")
     public RestResponse updateArrivalTime(@RequestBody LoadingStationDTO loadingStationDTO){
         loadingStationService.updateStatus(loadingStationDTO);
