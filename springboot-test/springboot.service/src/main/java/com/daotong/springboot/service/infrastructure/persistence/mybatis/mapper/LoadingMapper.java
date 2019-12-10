@@ -31,19 +31,38 @@ public interface LoadingMapper {
     Page<LoadingDTO> getByQueryParam(LoadingQueryParam loadingQueryParam);
 
     /**
-     * 根据id删除运单
-     *
-     * @param loadingId
-     * @return
-     */
-    int deleteLoading(@Param(value = "loadingId") Integer loadingId);
-
-    /**
      * 手动设置完成运单
      *
      * @param loadingId
      * @param complateTime
      */
     void manualComplete(@Param(value = "loadingId") Integer loadingId, @Param(value = "complateTime") LocalDateTime complateTime);
+
+    /**
+     * 更新实际到达首站时间
+     *
+     * @param loadingId
+     * @param actualArrivalTime
+     */
+    void updateActualArrivalTime(@Param(value = "loadingId") Integer loadingId,
+                                 @Param(value = "ActualArrivalTime") LocalDateTime actualArrivalTime);
+
+    /**
+     * 更新实际首站发车时间
+     *
+     * @param loadingId
+     * @param actualSendTime
+     */
+    void updateActualSendTime(@Param(value = "loadingId") Integer loadingId,
+                              @Param(value = "actualSendTime") LocalDateTime actualSendTime);
+
+    /**
+     * 更新实际完成时间
+     *
+     * @param loadingId
+     * @param actualCompleteTime
+     */
+    void updateActualCompleteTime(@Param(value = "loadingId") Integer loadingId,
+                                  @Param(value = "actualCompleteTime") LocalDateTime actualCompleteTime);
 
 }

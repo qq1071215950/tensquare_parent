@@ -13,6 +13,9 @@ import java.time.LocalDateTime;
  */
 @Data
 public class LoadingStationDTO {
+    private Integer id;
+
+    private Integer loadingId;
 
     private Integer stationId;
 

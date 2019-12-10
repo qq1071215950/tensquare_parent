@@ -74,6 +74,9 @@
     <select id="getByLoadingId" parameterType="int" resultMap="stationMap">
        select s.name,
               s.id,
+              lt.id as ls_id,
+              lt.loading_id,
+              lt.station_id,
               lt.station_status ,
               lt.seq,
               lt.plan_arrival_time,
@@ -89,6 +92,9 @@
         <id column="id" property="id"/>
         <result column="name" property="name"/>
         <collection property="loadingStation" javaType="loadingStationDTO">
+            <id column="ls_id" property="id"/>
+            <result column="loading_id" property="loadingId"/>
+            <result column="station_id" property="stationId"/>
             <result column="station_status" property="stationStatus"/>
             <result column="seq" property="seq"/>
             <result column="plan_arrival_time" property="planArrivalTime"/>

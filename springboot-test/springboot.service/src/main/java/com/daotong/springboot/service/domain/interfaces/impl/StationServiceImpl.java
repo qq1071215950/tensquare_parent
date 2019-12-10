@@ -80,13 +80,4 @@ public class StationServiceImpl implements StationService {
         return stations;
     }
 
-    @Override
-    public StationVO getByStationId(Integer stationId) {
-        //参数校验
-        if(StringUtils.isEmpty(stationId)&&stationId<0){
-            throw new IllegalArgumentException("IllegalArg");
-        }
-        StationDTO byStationId = stationMapper.getByStationId(stationId);
-        return StationTranslator.transform(byStationId);
-    }
 }

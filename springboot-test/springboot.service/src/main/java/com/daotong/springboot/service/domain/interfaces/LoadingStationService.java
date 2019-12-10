@@ -10,13 +10,11 @@ import java.time.LocalDateTime;
 public interface LoadingStationService {
 
     /**
-     * 更新运单站点状态
-     * @param loadingStationStatus
-     * @param loadingId
-     * @param stationId
-     * @param time
-     * @return
+     * 进站出站时更新时间以及站点状态
+     *
+     * @param loadingStationId
+     * @param currentTime
+     * @param seq
      */
-    int updateLoadingStationStatus(String loadingStationStatus,LocalDateTime time,  Integer loadingId, Integer stationId);
-
+    void updateStatus(Integer loadingStationId, LocalDateTime currentTime, Integer seq);
 }

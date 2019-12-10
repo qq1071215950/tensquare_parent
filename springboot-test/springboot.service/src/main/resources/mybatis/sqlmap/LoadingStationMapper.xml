@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper>
-
+<mapper namespace="com.daotong.springboot.service.infrastructure.persistence.mybatis.mapper.LoadingStationMapper">
+    <!--更新站点实际到达时间-->
+    <update id="updateActualArrivalTime">
+        update t_loadingstation set actual_arrival_time=#{actualArrivalTime},station_status='arrived' where id=#{loadingStationId}
+    </update>
+    <!--更新站点实际出发时间-->
+    <update id="updateActualSendTime">
+        update t_loadingstation set actual_send_time=#{actualSendTime},station_status='start'where id=#{loadingStationId}
+    </update>
+    <!--根据运单号将所有状态设置为完成-->
+    <update id="setManualComplete">
+        update t_loadingstation set station_status='arrived' where loading_id=#{loadingId}
+    </update>
 </mapper>

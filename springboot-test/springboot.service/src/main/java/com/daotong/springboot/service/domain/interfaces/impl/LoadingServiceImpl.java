@@ -8,6 +8,7 @@ import com.daotong.springboot.service.domain.enums.LoadingEnum;
 import com.daotong.springboot.service.domain.interfaces.LoadingService;
 import com.daotong.springboot.service.infrastructure.persistence.mybatis.mapper.LoadingMapper;
 import com.daotong.springboot.service.infrastructure.persistence.mybatis.mapper.LoadingStationMapper;
+import com.daotong.springboot.service.infrastructure.persistence.mybatis.mapper.StationMapper;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,8 @@ public class LoadingServiceImpl implements LoadingService {
     private LoadingMapper loadingMapper;
     @Autowired(required = false)
     private LoadingStationMapper loadingStationMapper;
+    @Autowired(required = false)
+    private StationMapper stationMapper;
     @Override
     public int saveLoading(LoadingDTO loading) {
         //设置首发站点终点站id
@@ -56,18 +59,15 @@ public class LoadingServiceImpl implements LoadingService {
     public List<LoadingDTO> getByQueryParam(LoadingQueryParam loadingQueryParam) {
         PageHelper.startPage(loadingQueryParam.getCurPage(),loadingQueryParam.getPageSize());
         Page<LoadingDTO> byQueryParam = loadingMapper.getByQueryParam(loadingQueryParam);
-        return byQueryParam.getResult();
-    }
-
-    @Override
-    public void deleteLoading(Integer loadingId) {
-        //删除运单表记录
-        int i = loadingMapper.deleteLoading(loadingId);
-        //删除运单站点表记录
-        loadingStationMapper.removeLoadingStation(loadingId);
-        if(i<1){
-            throw new RuntimeException("deleteFailed");
+        if(byQueryParam==null){
+            return null;
         }
+        //填充站点状态信息
+        List<LoadingDTO> result = byQueryParam.getResult();
+        for (LoadingDTO loadingDTO : result) {
+            loadingDTO.setStations(stationMapper.getByLoadingId(loadingQueryParam.getLoadingId()));
+        }
+        return result;
     }
 
     @Override
@@ -77,4 +77,5 @@ public class LoadingServiceImpl implements LoadingService {
         //运单站点表修改
         loadingStationMapper.setManualComplete(loadingId);
     }
+
 }

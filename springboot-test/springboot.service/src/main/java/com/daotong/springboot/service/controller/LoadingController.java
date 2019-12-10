@@ -41,12 +41,6 @@ public class LoadingController {
         List<LoadingDTO> byQueryParam = loadingService.getByQueryParam(loadingQueryParam);
         return RestResponse.single(byQueryParam);
     }
-    @ApiOperation(httpMethod = "get",value = "删除运单")
-    @GetMapping("/delete")
-    public RestResponse removeLoading(@NotNull @ApiParam(value = "运单id") Integer loadingId){
-        loadingService.deleteLoading(loadingId);
-        return RestResponse.success();
-    }
     @ApiOperation(httpMethod = "get",value = "手动完成运单接口")
     @GetMapping
     public RestResponse manualComplete(@ApiParam(value = "运单id") @RequestParam(value = "loadingId") Integer loadingId,
@@ -54,13 +48,5 @@ public class LoadingController {
         loadingService.manualComplete(loadingId,currentTime);
         return RestResponse.success();
     }
-    @ApiOperation(httpMethod = "get",value = "更新运单站点状态和时间")
-    @GetMapping("/update_status")
-    public RestResponse updateLoadingStationStatus(@RequestParam(value = "loadingStationStatus") @NotNull String loadingStationStatus,
-                                                   @RequestParam(value = "time") @NotNull LocalDateTime time,
-                                                   @RequestParam(value = "loadingId") @NotNull Integer loadingId,
-                                                   @RequestParam(value = "stationId") @NotNull Integer stationId){
-        loadingStationService.updateLoadingStationStatus(loadingStationStatus,time, loadingId,stationId);
-        return RestResponse.success();
-    }
+
 }

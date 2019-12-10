@@ -11,9 +11,8 @@ import java.time.LocalDateTime;
  */
 @Service
 public class LoadingStationServiceImpl implements LoadingStationService {
-
     @Override
-    public int updateLoadingStationStatus(String loadingStationStatus,LocalDateTime time,  Integer loadingId, Integer stationId) {
-        return 0;
+    public void updateStatus(Integer loadingStationId, LocalDateTime currentTime, Integer seq) {
+
     }
 }

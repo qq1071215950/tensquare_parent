@@ -90,12 +90,20 @@
                   </if>
               </where>
     </select>
-    <!--根据id删除运单-->
-    <delete id="deleteLoading" parameterType="int">
-        delete from t_loading where id=#{loadingId}
-    </delete>
     <!--手动完成运单-->
     <update id="manualComplete">
-      update t_loading set loading_state='manualComplate',actual_complate_time=#{complateTime} where id=#{loadingId}
+      update t_loading set loading_state='manual',actual_complate_time=#{complateTime} where id=#{loadingId}
+    </update>
+    <!--更新实际到达首站时间-->
+    <update id="updateActualArrivalTime">
+        update t_loading set loading_state='arrivedStart',actual_arrival_time=#{actualArrivalTime} where id=#{loadingId}
+    </update>
+    <!--更新实际首站发车时间-->
+    <update id="updateActualSendTime">
+        update t_loading set loading_state='loading_state',actual_send_time=#{actualSendTime} where id=#{loadingId}
+    </update>
+    <!--更新实际完成时间-->
+    <update id="updateActualCompleteTime">
+        update t_loading set loading_state='complete',actual_complate_time=#{actualCompleteTime} where id=#{loadingId}
     </update>
 </mapper>

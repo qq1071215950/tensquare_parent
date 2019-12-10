@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 @Setter
 @Getter
 public class LoadingQueryParam {
+    private Integer loadingId;
 
     private String loadingNo;
 

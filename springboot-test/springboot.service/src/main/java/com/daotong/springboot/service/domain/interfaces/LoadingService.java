@@ -28,18 +28,11 @@ public interface LoadingService {
     List<LoadingDTO> getByQueryParam(LoadingQueryParam loadingQueryParam);
 
     /**
-     * 根据id删除运单
-     *
-     * @param loadingId
-     * @return
-     */
-    void deleteLoading(Integer loadingId);
-
-    /**
      * 手动设置完成运单
      *
      * @param loadingId
      * @param complateTime
      */
     void manualComplete(Integer loadingId,LocalDateTime complateTime);
+
 }

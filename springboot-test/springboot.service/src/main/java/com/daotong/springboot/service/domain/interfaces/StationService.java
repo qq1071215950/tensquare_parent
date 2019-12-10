@@ -54,12 +54,4 @@ public interface StationService {
      * @return
      */
     List<StationVO> getByLoadingId(Integer loadingId);
-
-    /**
-     * 根据站点id
-     *
-     * @param stationId
-     * @return
-     */
-    StationVO getByStationId(Integer stationId);
 }

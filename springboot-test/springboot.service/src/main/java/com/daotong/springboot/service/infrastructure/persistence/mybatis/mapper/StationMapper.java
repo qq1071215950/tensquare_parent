@@ -47,7 +47,7 @@ public interface StationMapper {
     Page<StationDTO> getStationList(StationDTO stationDTO);
 
     /**
-     * 通过运单号获取运单包含的站点信息
+     * 通过运单id获取运单包含的站点信息
      *
      * @param loadingId
      * @return
