@@ -28,11 +28,9 @@ public class SwaggerConfigurations {
                 .build();
     }
     private ApiInfo apiInfo() {
-        Contact contact = new Contact("zdh", "", "");
         return new ApiInfoBuilder()
                 .title("Swagger 1.x API接口文档")
-                .description("")
-                .contact(contact)
+                .description("运单案例接口文档")
                 .version("1.0.0")
                 .build();
     }

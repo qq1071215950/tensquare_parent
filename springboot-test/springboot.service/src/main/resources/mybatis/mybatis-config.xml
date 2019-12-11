@@ -40,7 +40,7 @@
 
 	<!-- by peter.ty java code与resource分解为2个module后, 需要明确指定resource, 否则mybatis自己找不到 -->
 	<mappers>
-
+	<package name="classpath:mybatis/sqlmap/*.xml"/>
 	</mappers>
 
 </configuration>

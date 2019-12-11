@@ -102,7 +102,7 @@
     </update>
     <!--更新实际首站发车时间-->
     <update id="updateActualSendTime">
-        update t_loading set loading_state='loading_state',actual_send_time=#{actualSendTime} where id=#{loadingId}
+        update t_loading set loading_state='transporting',actual_send_time=#{actualSendTime} where id=#{loadingId}
     </update>
     <!--更新实际完成时间-->
     <update id="updateActualCompleteTime">
