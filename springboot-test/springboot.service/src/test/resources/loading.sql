@@ -110,8 +110,6 @@ CREATE TABLE `t_station` (
   `city_name` varchar(16) DEFAULT NULL,
   `area_code` varchar(16) DEFAULT NULL,
   `area_name` varchar(16) DEFAULT NULL,
-  `createor` varchar(16) DEFAULT NULL,
-  `modifier` varchar(16) DEFAULT NULL,
   `gmt_create` datetime DEFAULT NULL,
   `gmt_modified` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)

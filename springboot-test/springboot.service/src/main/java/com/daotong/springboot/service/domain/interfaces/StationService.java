@@ -1,7 +1,10 @@
 package com.daotong.springboot.service.domain.interfaces;
 
+import com.daotong.springboot.service.domain.bo.StationBO;
+import com.daotong.springboot.service.domain.bo.UpdateStationBO;
 import com.daotong.springboot.service.domain.dto.StationDTO;
-import com.daotong.springboot.service.domain.dto.StationQueryParam;
+import com.daotong.springboot.service.domain.query.QueryStation;
+import com.daotong.springboot.service.domain.vo.PageVO;
 import com.daotong.springboot.service.domain.vo.StationVO;
 import com.github.pagehelper.Page;
 import org.apache.ibatis.annotations.Param;
@@ -19,8 +22,7 @@ public interface StationService {
      * @param station
      * @return
      */
-    @Transactional(rollbackFor = Exception.class)
-    int saveStation(StationDTO station);
+    void saveStation(StationBO station);
 
     /**
      * 删除站点
@@ -28,8 +30,7 @@ public interface StationService {
      * @param id 站点id
      * @return
      */
-    @Transactional(rollbackFor = Exception.class)
-    int removeStation(Integer id);
+    void removeStation(Integer id);
 
     /**
      * 修改站点信息
@@ -37,15 +38,13 @@ public interface StationService {
      * @param station
      * @return
      */
-    @Transactional(rollbackFor = Exception.class)
-    int updateStation(StationDTO station);
+    void updateStation(UpdateStationBO station);
+
 
     /**
-     * 分页获取站点信息
-     *
-     * @param stationQueryParam
+     * 多条件分页查询站点信息
+     * @param queryStation
      * @return
      */
-    List<StationVO> getStationList(StationQueryParam stationQueryParam);
-
+    PageVO getStationList(QueryStation queryStation);
 }

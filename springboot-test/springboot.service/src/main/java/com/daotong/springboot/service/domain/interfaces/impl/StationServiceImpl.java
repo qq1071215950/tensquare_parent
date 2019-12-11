@@ -1,70 +1,136 @@
 package com.daotong.springboot.service.domain.interfaces.impl;
 
-import com.daotong.springboot.service.domain.dto.LoadingStationDTO;
+import com.daotong.springboot.service.domain.bo.StationBO;
+import com.daotong.springboot.service.domain.bo.UpdateStationBO;
 import com.daotong.springboot.service.domain.dto.StationDTO;
-import com.daotong.springboot.service.domain.dto.StationQueryParam;
 import com.daotong.springboot.service.domain.interfaces.StationService;
+import com.daotong.springboot.service.domain.model.Station;
+import com.daotong.springboot.service.domain.query.QueryStation;
+import com.daotong.springboot.service.domain.vo.NewStationVO;
+import com.daotong.springboot.service.domain.vo.PageVO;
 import com.daotong.springboot.service.domain.vo.StationVO;
 import com.daotong.springboot.service.infrastructure.persistence.mybatis.mapper.StationMapper;
 import com.daotong.springboot.service.infrastructure.translator.StationTranslator;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author Zdh 2019/12/6 10:15
  */
 @Service
 public class StationServiceImpl implements StationService {
-    @Autowired(required = false)
+    private static final Integer DEFAULT_CURRPAGE = 1;
+    private static final Integer DEFAULT_PAGESIZE = 10;
+
+    @Autowired
     private StationMapper stationMapper;
+
+    @Transactional(propagation = Propagation.REQUIRED)
     @Override
-    public int saveStation(StationDTO station) {
+    public void saveStation(StationBO stationBO) {
+        if (StringUtils.isBlank(stationBO.getCode())){
+            throw new RuntimeException("站点编码不能为空");
+        }
+        if (StringUtils.isBlank(stationBO.getName())){
+            throw new RuntimeException("站点名称不能为空");
+        }
+        if (StringUtils.isBlank(stationBO.getProvinceName())){
+            throw new RuntimeException("省名称不能为空");
+        }
+        if (StringUtils.isBlank(stationBO.getCityName())){
+            throw new RuntimeException("城市名称不能为空");
+        }
+        if (StringUtils.isBlank(stationBO.getAreaName())){
+            throw new RuntimeException("区名称不能为空");
+        }
+        Station station = bo2Staion(stationBO);
+        station.setGmtCreate(new Date());
+        station.setGmtModified(new Date());
         int i = stationMapper.saveStation(station);
         if(i<1){
             throw new RuntimeException("insertFailed");
         }
-        return i;
+    }
+    private Station bo2Staion(StationBO stationBO){
+        Station station = new Station();
+        BeanUtils.copyProperties(stationBO,station);
+        return station;
     }
 
+    @Transactional(propagation = Propagation.SUPPORTS)
     @Override
-    public int removeStation(Integer id) {
-        //参数校验
-        if(StringUtils.isEmpty(id)&&id<0){
-            throw new IllegalArgumentException("IllegalArg");
-        }
+    public void removeStation(Integer id) {
         int i = stationMapper.removeStation(id);
         if(i<1){
             throw new RuntimeException("removeFailed");
         }
-        return i;
     }
 
+    @Transactional(propagation = Propagation.REQUIRED)
     @Override
-    public int updateStation(StationDTO station) {
+    public void updateStation(UpdateStationBO updateStationBO) {
+        if (updateStationBO.getId() == null){
+            throw new RuntimeException("站点Id不能为空");
+        }
+        Station station = updateBO2Station(updateStationBO) ;
         int i = stationMapper.updateStation(station);
         if(i<1){
             throw new RuntimeException("updateFailed");
         }
-        return 0;
     }
 
+    @Transactional(propagation = Propagation.SUPPORTS)
     @Override
-    public List<StationVO> getStationList(StationQueryParam stationQueryParam) {
-        PageHelper.startPage(stationQueryParam.getCurPage(),stationQueryParam.getPageSize());
-        Page<StationDTO> stationList = stationMapper.getStationList(stationQueryParam);
-        ArrayList<StationVO> stations = new ArrayList<>();
-        List<StationDTO> result = stationList.getResult();
-        for (StationDTO dto : result) {
-            StationVO vo = StationTranslator.transform(dto);
-            stations.add(vo);
+    public PageVO getStationList(QueryStation queryStation) {
+        Integer currPage = queryStation.getCurPage();
+        Integer pageSize = queryStation.getPageSize();
+        if (currPage == null){
+            currPage = DEFAULT_CURRPAGE;
         }
-        return stations;
+        if (pageSize == null){
+            pageSize = DEFAULT_PAGESIZE;
+        }
+        Integer startIndex = (currPage-1)*pageSize;
+        Map<String, Object> map = new HashMap<>();
+        map.put("startIndex",startIndex);
+        map.put("pageSize",pageSize);
+        map.put("code",queryStation.getCode());
+        map.put("name",queryStation.getName());
+        map.put("provinceName",queryStation.getProvinceName());
+        map.put("cityName",queryStation.getCityName());
+        map.put("areaName",queryStation.getAreaName());
+        List<Station> stationList = stationMapper.getStationList(map);
+        Integer total = stationMapper.countStationByConditions(map);
+        PageVO pageVO = new PageVO();
+        if (! CollectionUtils.isEmpty(stationList)){
+            List<NewStationVO> newStationVOList = stationList.stream()
+                    .map(x ->{
+                        NewStationVO newStationVO = new NewStationVO();
+                        BeanUtils.copyProperties(x,newStationVO);
+                        return newStationVO;
+                    }).collect(Collectors.toList());
+            pageVO.setData(newStationVOList);
+        }
+        pageVO.setCurrPage(currPage);
+        pageVO.setPageSize(pageSize);
+        pageVO.setTotal(total);
+        return pageVO;
     }
 
+    private Station updateBO2Station(UpdateStationBO updateStationBO){
+        Station station = new Station();
+        BeanUtils.copyProperties(updateStationBO,station);
+        return station;
+    }
 }
