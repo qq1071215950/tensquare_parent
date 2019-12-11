@@ -1,6 +1,9 @@
 package com.daotong.springboot.service.infrastructure.persistence.mybatis.mapper;
 
+import com.daotong.springboot.service.domain.dto.LoadingStationDTO;
 import com.daotong.springboot.service.domain.dto.StationDTO;
+import com.daotong.springboot.service.domain.model.LoadingStation;
+import com.daotong.springboot.service.domain.model.NewStation;
 import com.daotong.springboot.service.domain.model.Station;
 import com.daotong.springboot.service.domain.query.QueryStation;
 import com.github.pagehelper.Page;
@@ -22,7 +25,7 @@ public interface StationMapper {
      * @param station
      * @return
      */
-    int saveStation(Station station);
+    int saveStation(NewStation station);
 
     /**
      * 删除站点
@@ -38,7 +41,7 @@ public interface StationMapper {
      * @param station
      * @return
      */
-    int updateStation(Station station);
+    int updateStation(NewStation station);
 
 
     /**
@@ -46,7 +49,7 @@ public interface StationMapper {
      * @param map
      * @return
      */
-    List<Station> getStationList(Map<String, Object> map);
+    List<NewStation> getStationList(Map<String, Object> map);
 
     int countStationByConditions(Map<String, Object> map);
     /**
@@ -55,7 +58,7 @@ public interface StationMapper {
      * @param loadingId
      * @return
      */
-    List<StationDTO> getByLoadingId(@Param(value = "loadingId") Integer loadingId);
+    List<LoadingStationDTO> getByLoadingId(@Param(value = "loadingId") Integer loadingId);
 
     /**
      * 根据站点id

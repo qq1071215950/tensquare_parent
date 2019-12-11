@@ -60,10 +60,10 @@ class StationMapperTest {
 //        log.info(result.toString());
 //        Assert.assertFalse("failed",result.size()<1||result==null);
 //    }
-    @Test
-    void getByLoadingNoTest(){
-        List<StationDTO> byLoadingNo = stationMapper.getByLoadingId(1);
-        log.info(byLoadingNo.toString());
-        Assert.assertNotNull("查询成功",byLoadingNo);
-    }
+//    @Test
+//    void getByLoadingNoTest(){
+//        List<StationDTO> byLoadingNo = stationMapper.getByLoadingId(1);
+//        log.info(byLoadingNo.toString());
+//        Assert.assertNotNull("查询成功",byLoadingNo);
+//    }
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.daotong.springboot.service.infrastructure.persistence.mybatis.mapper.StationMapper">
-    <insert id="saveStation" parameterType="Station" useGeneratedKeys="true">
+    <insert id="saveStation" parameterType="NewStation" useGeneratedKeys="true">
         insert into t_station(
         id,code,name,province_code,province_name,city_code,city_name,
         area_code,area_name,gmt_create,gmt_modified)
@@ -16,7 +16,7 @@
         delete from t_station where id=#{id}
     </delete>
     <!--更新站点-->
-    <update id="updateStation" parameterType="Station">
+    <update id="updateStation" parameterType="NewStation">
         update t_station
         <set>
             <if test="code!=null and code!=''">
@@ -48,7 +48,7 @@
         where id=#{id}
     </update>
     <!--查询站点列表-->
-    <select id="getStationList" parameterType="map" resultType="Station">
+    <select id="getStationList" parameterType="map" resultType="NewStation">
         select * from t_station
         <where>
             <if test="code!=null and code!=''">
@@ -100,23 +100,23 @@
     </select>
 
     <!--根据运单号查询站点信息和状态-->
-<!--    <select id="getByLoadingId" parameterType="int" resultMap="stationMap">-->
-<!--       select s.name,-->
-<!--              s.id,-->
-<!--              lt.id as ls_id,-->
-<!--              lt.loading_id,-->
-<!--              lt.station_id,-->
-<!--              lt.station_status ,-->
-<!--              lt.seq,-->
-<!--              lt.plan_arrival_time,-->
-<!--              lt.plan_send_time,-->
-<!--              lt.actual_arrival_time,-->
-<!--              lt.actual_send_time-->
-<!--              from t_station s-->
-<!--			  left join t_loading_station ls on s.id= ls.station_id-->
-<!--				    join t_loadingstation lt on lt.station_id=s.id-->
-<!--                  where lt.loading_id=#{loadingId}-->
-<!--    </select>-->
+    <select id="getByLoadingId" parameterType="int" resultType="LoadingStationDTO">
+       select s.name,
+              s.id,
+              lt.id as ls_id,
+              lt.loading_id,
+              lt.station_id,
+              lt.station_status ,
+              lt.seq,
+              lt.plan_arrival_time,
+              lt.plan_send_time,
+              lt.actual_arrival_time,
+              lt.actual_send_time
+              from t_station s
+			  left join t_loading_station ls on s.id= ls.station_id
+				    join t_loadingstation lt on lt.station_id=s.id
+                  where lt.loading_id=#{loadingId}
+    </select>
 <!--    <resultMap id="stationMap" type="stationDTO">-->
 <!--        <id column="id" property="id"/>-->
 <!--        <result column="name" property="name"/>-->

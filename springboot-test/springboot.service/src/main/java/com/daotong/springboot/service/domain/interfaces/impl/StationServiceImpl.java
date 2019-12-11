@@ -4,6 +4,7 @@ import com.daotong.springboot.service.domain.bo.StationBO;
 import com.daotong.springboot.service.domain.bo.UpdateStationBO;
 import com.daotong.springboot.service.domain.dto.StationDTO;
 import com.daotong.springboot.service.domain.interfaces.StationService;
+import com.daotong.springboot.service.domain.model.NewStation;
 import com.daotong.springboot.service.domain.model.Station;
 import com.daotong.springboot.service.domain.query.QueryStation;
 import com.daotong.springboot.service.domain.vo.NewStationVO;
@@ -54,7 +55,7 @@ public class StationServiceImpl implements StationService {
         if (StringUtils.isBlank(stationBO.getAreaName())){
             throw new RuntimeException("区名称不能为空");
         }
-        Station station = bo2Staion(stationBO);
+        NewStation station = bo2Staion(stationBO);
         station.setGmtCreate(new Date());
         station.setGmtModified(new Date());
         int i = stationMapper.saveStation(station);
@@ -62,8 +63,8 @@ public class StationServiceImpl implements StationService {
             throw new RuntimeException("insertFailed");
         }
     }
-    private Station bo2Staion(StationBO stationBO){
-        Station station = new Station();
+    private NewStation bo2Staion(StationBO stationBO){
+        NewStation station = new NewStation();
         BeanUtils.copyProperties(stationBO,station);
         return station;
     }
@@ -83,7 +84,7 @@ public class StationServiceImpl implements StationService {
         if (updateStationBO.getId() == null){
             throw new RuntimeException("站点Id不能为空");
         }
-        Station station = updateBO2Station(updateStationBO) ;
+        NewStation station = updateBO2Station(updateStationBO) ;
         int i = stationMapper.updateStation(station);
         if(i<1){
             throw new RuntimeException("updateFailed");
@@ -110,7 +111,7 @@ public class StationServiceImpl implements StationService {
         map.put("provinceName",queryStation.getProvinceName());
         map.put("cityName",queryStation.getCityName());
         map.put("areaName",queryStation.getAreaName());
-        List<Station> stationList = stationMapper.getStationList(map);
+        List<NewStation> stationList = stationMapper.getStationList(map);
         Integer total = stationMapper.countStationByConditions(map);
         PageVO pageVO = new PageVO();
         if (! CollectionUtils.isEmpty(stationList)){
@@ -128,8 +129,8 @@ public class StationServiceImpl implements StationService {
         return pageVO;
     }
 
-    private Station updateBO2Station(UpdateStationBO updateStationBO){
-        Station station = new Station();
+    private NewStation updateBO2Station(UpdateStationBO updateStationBO){
+        NewStation station = new   NewStation();
         BeanUtils.copyProperties(updateStationBO,station);
         return station;
     }
