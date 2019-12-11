@@ -100,37 +100,19 @@
     </select>
 
     <!--根据运单号查询站点信息和状态-->
-    <select id="getByLoadingId" parameterType="int" resultType="LoadingStationDTO">
-       select s.name,
-              s.id,
-              lt.id as ls_id,
-              lt.loading_id,
-              lt.station_id,
-              lt.station_status ,
-              lt.seq,
-              lt.plan_arrival_time,
-              lt.plan_send_time,
-              lt.actual_arrival_time,
-              lt.actual_send_time
-              from t_station s
-			  left join t_loading_station ls on s.id= ls.station_id
-				    join t_loadingstation lt on lt.station_id=s.id
-                  where lt.loading_id=#{loadingId}
+    <select id="getByLoadingId" parameterType="int" resultType="loadingStationDTO">
+        select s.name as station_name,
+        lt.id,
+        lt.loading_id,
+        lt.station_id,
+        lt.station_status ,
+        lt.seq,
+        lt.plan_arrival_time,
+        lt.plan_send_time,
+        lt.actual_arrival_time,
+        lt.actual_send_time
+        from t_station s
+        left join t_loadingstation lt on lt.station_id=s.id
+        where lt.loading_id=#{loadingId}
     </select>
-<!--    <resultMap id="stationMap" type="stationDTO">-->
-<!--        <id column="id" property="id"/>-->
-<!--        <result column="name" property="name"/>-->
-<!--        <collection property="loadingStation" javaType="loadingStationDTO">-->
-<!--            <id column="ls_id" property="id"/>-->
-<!--            <result column="loading_id" property="loadingId"/>-->
-<!--            <result column="station_id" property="stationId"/>-->
-<!--            <result column="station_status" property="stationStatus"/>-->
-<!--            <result column="seq" property="seq"/>-->
-<!--            <result column="plan_arrival_time" property="planArrivalTime"/>-->
-<!--            <result column="plan_send_time" property="planSendTime"/>-->
-<!--            <result column="actual_arrival_time" property="actualArrivalTime"/>-->
-<!--            <result column="actual_send_time" property="actualSendTime"/>-->
-<!--            <result column="station_status" property="stationStatus" ></result>-->
-<!--        </collection>-->
-<!--    </resultMap>-->
 </mapper>
