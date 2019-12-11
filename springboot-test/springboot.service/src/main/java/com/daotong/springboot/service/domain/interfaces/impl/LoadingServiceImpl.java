@@ -7,6 +7,7 @@ import com.daotong.springboot.service.domain.dto.StationDTO;
 import com.daotong.springboot.service.domain.enums.LoadingEnum;
 import com.daotong.springboot.service.domain.enums.LoadingStationEnum;
 import com.daotong.springboot.service.domain.interfaces.LoadingService;
+import com.daotong.springboot.service.domain.vo.LoadingVO;
 import com.daotong.springboot.service.infrastructure.persistence.mybatis.mapper.LoadingMapper;
 import com.daotong.springboot.service.infrastructure.persistence.mybatis.mapper.LoadingStationMapper;
 import com.daotong.springboot.service.infrastructure.persistence.mybatis.mapper.StationMapper;
@@ -46,36 +47,32 @@ public class LoadingServiceImpl implements LoadingService {
         loading.setPlanSendTime(loading.getPlanSendTime());
         //首站计划到达时间
         loading.setPlanArrivalTime(loading.getPlanArrivalTime());
-        //运单-站点关联添加
-        List<StationDTO> stations = loading.getStations();
-        ArrayList<Integer> stationIds = new ArrayList<>();
-        if(stations==null){
+        //运单-站点状态信息添加
+        List<LoadingStationDTO> loadingStations= loading.getStations();
+        if(loadingStations==null){
             throw new RuntimeException("Empty Stations");
         }
-        for (int i = 0; i < stations.size(); i++) {
-            StationDTO station = stations.get(i);
-            stationIds.add(station.getId());
+        for (int i = 0; i < loadingStations.size(); i++) {
+            LoadingStationDTO loadingStation = loadingStations.get(i);
             //运单站点状态初始化并更新到数据库
-            LoadingStationDTO loadingStation = station.getLoadingStation();
             loadingStation.setStationStatus(LoadingStationEnum.UN_START.getStatus());
             loadingStationMapper.addRelations(loadingStation);
         }
-        loadingMapper.addStationMsg(loadingId,stationIds);
         int i = loadingMapper.saveLoading(loading);
         return i;
     }
 
     @Override
-    public List<LoadingDTO> getByQueryParam(LoadingQueryParam loadingQueryParam) {
+    public List<LoadingVO> getByQueryParam(LoadingQueryParam loadingQueryParam) {
         PageHelper.startPage(loadingQueryParam.getCurPage(),loadingQueryParam.getPageSize());
-        Page<LoadingDTO> byQueryParam = loadingMapper.getByQueryParam(loadingQueryParam);
+        Page<LoadingVO> byQueryParam = loadingMapper.getByQueryParam(loadingQueryParam);
         if(byQueryParam==null){
             return null;
         }
         //填充站点状态信息
-        List<LoadingDTO> result = byQueryParam.getResult();
-        for (LoadingDTO loadingDTO : result) {
-            loadingDTO.setStations(stationMapper.getByLoadingId(loadingQueryParam.getLoadingId()));
+        List<LoadingVO> result = byQueryParam.getResult();
+        for (LoadingVO loadingVO : result) {
+            loadingVO.setStations(stationMapper.getByLoadingId(loadingVO.getLoadingId()));
         }
         return result;
     }
@@ -86,6 +83,11 @@ public class LoadingServiceImpl implements LoadingService {
         loadingMapper.manualComplete(loadingId,completeTime);
         //运单站点表修改
         loadingStationMapper.setManualComplete(loadingId);
+    }
+
+    @Override
+    public void updateLoadingMsg(LoadingStationDTO loadingStationDTO) {
+
     }
 
     /**

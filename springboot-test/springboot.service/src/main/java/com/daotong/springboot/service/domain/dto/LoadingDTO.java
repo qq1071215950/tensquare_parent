@@ -38,12 +38,6 @@ public class LoadingDTO {
     private LocalDateTime planSendTime;
     @ApiModelProperty(value = "计划运单完成时间",required = true)
     private LocalDateTime planComplateTime;
-    @ApiModelProperty(value = "实际首站到达时间")
-    private LocalDateTime actualArrivalTime;
-    @ApiModelProperty(value = "实际首站发车时间")
-    private LocalDateTime actualSendTime;
-    @ApiModelProperty(value = "实际完成运单时间")
-    private LocalDateTime actualComlateTime;
     @ApiModelProperty(value = "运单状态")
     private LoadingEnum loadingEnum;
     @ApiModelProperty(value = "商家")
@@ -59,9 +53,9 @@ public class LoadingDTO {
     @ApiModelProperty(value = "联系方式")
     private String tel;
     /**
-     * 运单包含的站点
+     * 运单包含的站点状态
      */
     @ApiModelProperty(value = "运单站点信息")
-    private List<StationDTO> stations;
+    private List<LoadingStationDTO> stations;
 
 }

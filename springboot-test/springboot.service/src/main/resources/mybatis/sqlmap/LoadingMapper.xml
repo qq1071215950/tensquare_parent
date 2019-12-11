@@ -35,11 +35,13 @@
                         #{tel})
     </insert>
     <!--查询订单-->
-    <select id="getByQueryParam" parameterType="loadingQueryParam" resultMap="loadingMap">
-      select id,saler,
+    <select id="getByQueryParam" parameterType="loadingQueryParam" resultType="loadingVO">
+      select id as loading_id,
+            saler,
             loading_no,
             line_name,
             actual_send_time,
+            actual_complate_time，
             plan_send_time,
             plan_complate_time,
             temperature_layer,
@@ -108,11 +110,5 @@
     <update id="updateActualCompleteTime">
         update t_loading set loading_state='complete',actual_complate_time=#{actualCompleteTime} where id=#{loadingId}
     </update>
-    <!--批量插入站点关联-->
-    <insert id="addStationMsg">
-        insert into t_loading_station (loading_id,station_id) values 
-        <foreach collection="stationIds" separator="," item="id">
-            (#{loadingId},id)
-        </foreach>
-    </insert>
+
 </mapper>

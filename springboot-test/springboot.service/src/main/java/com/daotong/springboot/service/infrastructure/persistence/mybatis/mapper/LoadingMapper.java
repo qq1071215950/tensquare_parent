@@ -2,6 +2,7 @@ package com.daotong.springboot.service.infrastructure.persistence.mybatis.mapper
 
 import com.daotong.springboot.service.domain.dto.LoadingDTO;
 import com.daotong.springboot.service.domain.dto.LoadingQueryParam;
+import com.daotong.springboot.service.domain.vo.LoadingVO;
 import com.github.pagehelper.Page;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -28,7 +29,7 @@ public interface LoadingMapper {
      * @param loadingQueryParam
      * @return
      */
-    Page<LoadingDTO> getByQueryParam(LoadingQueryParam loadingQueryParam);
+    Page<LoadingVO> getByQueryParam(LoadingQueryParam loadingQueryParam);
 
     /**
      * 手动设置完成运单
@@ -65,11 +66,4 @@ public interface LoadingMapper {
     void updateActualCompleteTime(@Param(value = "loadingId") Integer loadingId,
                                   @Param(value = "actualCompleteTime") LocalDateTime actualCompleteTime);
 
-    /**
-     * 批量插入 运单站点关联表
-     *
-     * @param loadingId
-     * @param ids
-     */
-    void addStationMsg(@Param(value = "loadingId") Integer loadingId,@Param(value = "stationIds") List<Integer> ids);
 }

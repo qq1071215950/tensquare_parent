@@ -2,6 +2,8 @@ package com.daotong.springboot.service.domain.interfaces;
 
 import com.daotong.springboot.service.domain.dto.LoadingDTO;
 import com.daotong.springboot.service.domain.dto.LoadingQueryParam;
+import com.daotong.springboot.service.domain.dto.LoadingStationDTO;
+import com.daotong.springboot.service.domain.vo.LoadingVO;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
@@ -25,7 +27,7 @@ public interface LoadingService {
      * @param loadingQueryParam
      * @return
      */
-    List<LoadingDTO> getByQueryParam(LoadingQueryParam loadingQueryParam);
+    List<LoadingVO> getByQueryParam(LoadingQueryParam loadingQueryParam);
 
     /**
      * 手动设置完成运单
@@ -35,4 +37,10 @@ public interface LoadingService {
      */
     void manualComplete(Integer loadingId,LocalDateTime complateTime);
 
+    /**
+     * 编辑运单
+     *
+     * @param loadingStationDTO
+     */
+    void updateLoadingMsg(LoadingStationDTO loadingStationDTO);
 }

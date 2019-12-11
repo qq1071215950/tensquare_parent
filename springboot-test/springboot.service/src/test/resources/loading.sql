@@ -20,7 +20,7 @@ SET FOREIGN_KEY_CHECKS=0;
 -- ----------------------------
 DROP TABLE IF EXISTS `t_loading`;
 CREATE TABLE `t_loading` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL UNIQUE ,
   `loading_no` varchar(32) NOT NULL COMMENT '运输单号',
   `send_station_id` int(11) NOT NULL COMMENT '首发站点',
   `end_station_id` int(11) NOT NULL COMMENT '末站点',

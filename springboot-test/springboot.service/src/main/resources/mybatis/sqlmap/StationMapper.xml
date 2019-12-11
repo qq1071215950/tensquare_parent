@@ -41,12 +41,16 @@
         where id=#{id}
     </update>
     <!--查询站点列表-->
-    <select id="getStationList" parameterType="stationDTO" resultType="stationDTO">
+    <select id="getStationList" parameterType="stationQueryParam" resultType="stationDTO">
         select id,
         code,
         name,
         province_name,
-        city_name,area_name
+        province_code,
+        city_name,
+        city_code,
+        area_name,
+        area_code
         from t_station
         <where>
             <if test="code!=null and code!=''">
@@ -58,11 +62,20 @@
             <if test="provinceName!=null and provinceName!=''">
                 and province_name=#{provinceName}
             </if>
+            <if test="provinceCode!=null and provinceCode!=''">
+                and province_code=#{provinceCode}
+            </if>
             <if test="cityName!=null and cityName!=''">
                 and city_name=#{cityName}
             </if>
+            <if test="cityCode!=null and cityCode!=''">
+                and city_code=#{cityCode}
+            </if>
             <if test="areaName!=null and areaName!=''">
                 and area_name=#{areaName}
+            </if>
+            <if test="areaCode!=null and areaCode!=''">
+                and area_code=#{areaCode}
             </if>
         </where>
     </select>
@@ -71,10 +84,9 @@
         select id,code,name,province_name,city_name,area_name from t_station where id=#{stationId}
     </select>
     <!--根据运单号查询站点信息和状态-->
-    <select id="getByLoadingId" parameterType="int" resultMap="stationMap">
-       select s.name,
-              s.id,
-              lt.id as ls_id,
+    <select id="getByLoadingId" parameterType="int" resultType="loadingStationDTO">
+       select s.name as station_name,
+              lt.id,
               lt.loading_id,
               lt.station_id,
               lt.station_status ,
@@ -84,24 +96,7 @@
               lt.actual_arrival_time,
               lt.actual_send_time
               from t_station s
-			  left join t_loading_station ls on s.id= ls.station_id
-				    join t_loadingstation lt on lt.station_id=s.id
+			  left join t_loadingstation lt on lt.station_id=s.id
                   where lt.loading_id=#{loadingId}
     </select>
-    <resultMap id="stationMap" type="stationDTO">
-        <id column="id" property="id"/>
-        <result column="name" property="name"/>
-        <collection property="loadingStation" javaType="loadingStationDTO">
-            <id column="ls_id" property="id"/>
-            <result column="loading_id" property="loadingId"/>
-            <result column="station_id" property="stationId"/>
-            <result column="station_status" property="stationStatus"/>
-            <result column="seq" property="seq"/>
-            <result column="plan_arrival_time" property="planArrivalTime"/>
-            <result column="plan_send_time" property="planSendTime"/>
-            <result column="actual_arrival_time" property="actualArrivalTime"/>
-            <result column="actual_send_time" property="actualSendTime"/>
-            <result column="station_status" property="stationStatus" ></result>
-        </collection>
-    </resultMap>
 </mapper>

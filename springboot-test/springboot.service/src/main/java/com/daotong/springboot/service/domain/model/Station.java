@@ -19,8 +19,14 @@ public class Station {
     private String name;
     @ApiModelProperty(value = "省")
     private String provinceName;
+    @ApiModelProperty(value = "省")
+    private String provinceCode;
     @ApiModelProperty(value = "市")
     private String cityName;
+    @ApiModelProperty(value = "市")
+    private String cityCode;
     @ApiModelProperty(value = "区")
     private String areaName;
+    @ApiModelProperty(value = "区")
+    private String areaCode;
 }

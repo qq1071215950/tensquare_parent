@@ -18,8 +18,22 @@ public class StationQueryParam {
 
     private String provinceName;
 
+    private String provinceCode;
+
     private String cityName;
 
+    private String cityCode;
+
     private String areaName;
+
+    private String areaCode;
+    /**
+     * 当前页码
+     */
+    private Integer curPage;
+    /**
+     * 每页展示数量
+     */
+    private Integer pageSize;
 
 }

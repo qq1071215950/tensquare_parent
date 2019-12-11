@@ -1,6 +1,7 @@
 package com.daotong.springboot.service.domain.interfaces.impl;
 
 import com.daotong.springboot.service.domain.dto.LoadingStationDTO;
+import com.daotong.springboot.service.domain.dto.LoadingStationEnterParam;
 import com.daotong.springboot.service.domain.enums.LoadingStationEnum;
 import com.daotong.springboot.service.domain.interfaces.LoadingStationService;
 import com.daotong.springboot.service.domain.model.LoadingStation;
@@ -24,19 +25,19 @@ public class LoadingStationServiceImpl implements LoadingStationService {
     private LoadingMapper loadingMapper;
 
     @Override
-    public void updateStatus(LoadingStationDTO loadingStationDTO) {
+    public void updateStatus(LoadingStationEnterParam loadingStationEnterParam) {
         //运单id
-        Integer loadingId = loadingStationDTO.getLoadingId();
+        Integer loadingId = loadingStationEnterParam.getLoadingId();
         //当前站点序号
-        Integer seq = loadingStationDTO.getSeq();
+        Integer seq = loadingStationEnterParam.getSeq();
         //运单包含的所有站点序号集合
-        ArrayList<Integer> seqs = loadingStationDTO.getSeqs();
+        ArrayList<Integer> seqs = loadingStationEnterParam.getSeqs();
         //实际到达时间
-        LocalDateTime actualArrivalTime = loadingStationDTO.getActualArrivalTime();
+        LocalDateTime actualArrivalTime = loadingStationEnterParam.getActualArrivalTime();
         //实际出发时间
-        LocalDateTime actualSendTime = loadingStationDTO.getActualSendTime();
+        LocalDateTime actualSendTime = loadingStationEnterParam.getActualSendTime();
         //站点状态id
-        Integer loadingStationId = loadingStationDTO.getId();
+        Integer loadingStationId = loadingStationEnterParam.getId();
         //首站
         if(seq.equals(seqs.get(0))){
             updateToLoading(actualArrivalTime,actualSendTime,loadingStationId,loadingId);

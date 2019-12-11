@@ -20,7 +20,7 @@ SET FOREIGN_KEY_CHECKS=0;
 -- ----------------------------
 DROP TABLE IF EXISTS `t_loading`;
 CREATE TABLE `t_loading` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL UNIQUE ,
   `loading_no` varchar(32) NOT NULL COMMENT '运输单号',
   `send_station_id` int(11) NOT NULL COMMENT '首发站点',
   `end_station_id` int(11) NOT NULL COMMENT '末站点',
@@ -79,22 +79,6 @@ CREATE TABLE `t_loadingstation` (
 -- ----------------------------
 INSERT INTO `t_loadingstation` VALUES ('1', '1', '1', 'complate', '1', '2019-12-06 14:45:11', '2019-12-06 14:45:13', '2019-12-06 14:45:15', '2019-12-06 14:45:18', null, null, null, null);
 INSERT INTO `t_loadingstation` VALUES ('2', '1', '2', 'complate', '2', '2019-12-06 15:45:52', '2019-12-06 15:45:57', '2019-12-06 15:46:00', '2019-12-06 15:46:03', null, null, null, null);
-
--- ----------------------------
--- Table structure for t_loading_station
--- ----------------------------
-DROP TABLE IF EXISTS `t_loading_station`;
-CREATE TABLE `t_loading_station` (
-  `id` int(11) DEFAULT NULL,
-  `loading_id` int(11) NOT NULL COMMENT '运单id',
-  `station_id` int(11) NOT NULL COMMENT '站点id'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of t_loading_station
--- ----------------------------
-INSERT INTO `t_loading_station` VALUES ('1', '1', '1');
-INSERT INTO `t_loading_station` VALUES ('2', '1', '2');
 
 -- ----------------------------
 -- Table structure for t_station

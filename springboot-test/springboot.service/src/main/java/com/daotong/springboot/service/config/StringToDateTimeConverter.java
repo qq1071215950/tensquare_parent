@@ -27,13 +27,7 @@ public class StringToDateTimeConverter implements Converter<String,LocalDateTime
             return null;
         }
         try {
-            LocalDate parse = LocalDate.parse(s, DateTimeFormatter.ofPattern("yyyyMMdd"));
-            return parse.atStartOfDay();
-        }catch (RuntimeException e){
-            log.error("参数转换Date异常："+ e.getMessage());
-        }
-        try {
-            return LocalDateTime.parse(s,DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
+            return LocalDateTime.parse(s,DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
         }catch (RuntimeException e){
             log.error("参数转换DateTime异常"+ e.getMessage());
             throw new RuntimeException("在Controller转换日期格式时发生错误");

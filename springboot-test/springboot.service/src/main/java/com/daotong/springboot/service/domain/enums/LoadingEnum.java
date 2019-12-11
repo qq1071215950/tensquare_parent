@@ -21,7 +21,7 @@ public enum LoadingEnum {
     //手动完成
     MANUALLY("manual");
 
-    @ApiModelProperty(value = "当前状态")
+    @ApiModelProperty(value = "运单状态")
     private String loadingStatus;
 
     LoadingEnum(String loadingStatus) {

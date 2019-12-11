@@ -1,6 +1,7 @@
 package com.daotong.springboot.service.domain.enums;
 
 import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 /**
  * 运单站点状态
@@ -15,6 +16,7 @@ public enum LoadingStationEnum {
     ARRIVAL("arrived"),
     //出发
     START("start");
+    @ApiModelProperty(value = "站点状态")
     private String status;
 
     LoadingStationEnum(String status) {

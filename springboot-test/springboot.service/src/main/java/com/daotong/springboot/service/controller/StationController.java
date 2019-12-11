@@ -2,6 +2,7 @@ package com.daotong.springboot.service.controller;
 
 import com.daotong.springboot.service.base.RestResponse;
 import com.daotong.springboot.service.domain.dto.StationDTO;
+import com.daotong.springboot.service.domain.dto.StationQueryParam;
 import com.daotong.springboot.service.domain.interfaces.StationService;
 import com.daotong.springboot.service.domain.vo.StationVO;
 import io.swagger.annotations.*;
@@ -45,16 +46,8 @@ public class StationController {
 
     @PostMapping("/get_by_page")
     @ApiOperation(httpMethod = "GET", value = "分页查询站点信息", notes = "分页结果")
-    public RestResponse findByPage(@RequestBody StationDTO stationDTO) {
-        List<StationVO> stationList = stationService.getStationList(stationDTO);
+    public RestResponse findByPage(@RequestBody StationQueryParam stationQueryParam) {
+        List<StationVO> stationList = stationService.getStationList(stationQueryParam);
         return RestResponse.single(stationList);
-    }
-
-    @GetMapping("/get_by_load_id")
-    @ApiOperation(httpMethod = "GET", value = "通过loadingId获取运单信息")
-    public RestResponse getListByLoadingId(@ApiParam(name = "loadingId", value = "运单Id", required = true)
-                                               @RequestParam(value = "loadingId")@NotNull Integer loadingId) {
-        List<StationVO> byLoadingNo = stationService.getByLoadingId(loadingId);
-        return RestResponse.single(byLoadingNo);
     }
 }

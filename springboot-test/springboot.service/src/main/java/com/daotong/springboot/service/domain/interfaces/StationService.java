@@ -1,6 +1,7 @@
 package com.daotong.springboot.service.domain.interfaces;
 
 import com.daotong.springboot.service.domain.dto.StationDTO;
+import com.daotong.springboot.service.domain.dto.StationQueryParam;
 import com.daotong.springboot.service.domain.vo.StationVO;
 import com.github.pagehelper.Page;
 import org.apache.ibatis.annotations.Param;
@@ -42,16 +43,9 @@ public interface StationService {
     /**
      * 分页获取站点信息
      *
-     * @param stationDTO
+     * @param stationQueryParam
      * @return
      */
-    List<StationVO> getStationList(StationDTO stationDTO);
+    List<StationVO> getStationList(StationQueryParam stationQueryParam);
 
-    /**
-     * 通过运单号获取运单包含的站点信息
-     *
-     * @param loadingId
-     * @return
-     */
-    List<StationVO> getByLoadingId(Integer loadingId);
 }

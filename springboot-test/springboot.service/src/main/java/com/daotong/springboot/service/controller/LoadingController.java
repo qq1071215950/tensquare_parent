@@ -3,8 +3,11 @@ package com.daotong.springboot.service.controller;
 import com.daotong.springboot.service.base.RestResponse;
 import com.daotong.springboot.service.domain.dto.LoadingDTO;
 import com.daotong.springboot.service.domain.dto.LoadingQueryParam;
+import com.daotong.springboot.service.domain.dto.LoadingStationDTO;
+import com.daotong.springboot.service.domain.dto.LoadingStationEnterParam;
 import com.daotong.springboot.service.domain.interfaces.LoadingService;
 import com.daotong.springboot.service.domain.interfaces.LoadingStationService;
+import com.daotong.springboot.service.domain.vo.LoadingVO;
 import io.swagger.annotations.Api;
 
 import io.swagger.annotations.ApiOperation;
@@ -37,7 +40,7 @@ public class LoadingController {
     @ApiOperation(httpMethod = "POST", value = "根据条件查询运单")
     @PostMapping("/query_by_condition")
     public RestResponse getByQueryParam(@RequestBody LoadingQueryParam loadingQueryParam) {
-        List<LoadingDTO> byQueryParam = loadingService.getByQueryParam(loadingQueryParam);
+        List<LoadingVO> byQueryParam = loadingService.getByQueryParam(loadingQueryParam);
         return RestResponse.single(byQueryParam);
     }
     @ApiOperation(httpMethod = "GET",value = "手动完成运单接口")
@@ -47,5 +50,16 @@ public class LoadingController {
         loadingService.manualComplete(loadingId,currentTime);
         return RestResponse.success();
     }
-
+    @ApiOperation(httpMethod = "POST",value = "到达站点更新状态以及时间")
+    @PostMapping("/update_status")
+    public RestResponse updateArrivalTime(@RequestBody LoadingStationEnterParam loadingStationEnterParam){
+        loadingStationService.updateStatus(loadingStationEnterParam);
+        return RestResponse.success();
+    }
+    @ApiOperation(httpMethod = "POST",value = "运单详情编辑")
+    @PostMapping("/update")
+    public RestResponse updateLoadingMsg(@RequestBody LoadingStationDTO loadingStationDTO){
+        loadingService.updateLoadingMsg(loadingStationDTO);
+        return RestResponse.success();
+    }
 }

@@ -16,8 +16,6 @@ public class StationTranslator {
             station.setProvinceName(stationDTO.getProvinceName());
             station.setCityName(stationDTO.getCityName());
             station.setAreaName(stationDTO.getAreaName());
-            station.setLineName(stationDTO.getLineName());
-            station.setLoadingStation(stationDTO.getLoadingStation());
             return station;
         }
         return null;

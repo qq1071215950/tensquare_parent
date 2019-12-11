@@ -1,6 +1,8 @@
 package com.daotong.springboot.service.domain.interfaces.impl;
 
+import com.daotong.springboot.service.domain.dto.LoadingStationDTO;
 import com.daotong.springboot.service.domain.dto.StationDTO;
+import com.daotong.springboot.service.domain.dto.StationQueryParam;
 import com.daotong.springboot.service.domain.interfaces.StationService;
 import com.daotong.springboot.service.domain.vo.StationVO;
 import com.daotong.springboot.service.infrastructure.persistence.mybatis.mapper.StationMapper;
@@ -53,29 +55,14 @@ public class StationServiceImpl implements StationService {
     }
 
     @Override
-    public List<StationVO> getStationList(StationDTO stationDTO) {
-        PageHelper.startPage(stationDTO.getCurPage(),stationDTO.getPageSize());
-        Page<StationDTO> stationList = stationMapper.getStationList(stationDTO);
+    public List<StationVO> getStationList(StationQueryParam stationQueryParam) {
+        PageHelper.startPage(stationQueryParam.getCurPage(),stationQueryParam.getPageSize());
+        Page<StationDTO> stationList = stationMapper.getStationList(stationQueryParam);
         ArrayList<StationVO> stations = new ArrayList<>();
         List<StationDTO> result = stationList.getResult();
         for (StationDTO dto : result) {
             StationVO vo = StationTranslator.transform(dto);
             stations.add(vo);
-        }
-        return stations;
-    }
-
-    @Override
-    public List<StationVO> getByLoadingId(Integer loadingId) {
-        //校验
-        if(loadingId<1){
-            throw new IllegalArgumentException("IllegalArg");
-        }
-        List<StationDTO> byLoadingNo = stationMapper.getByLoadingId(loadingId);
-        ArrayList<StationVO> stations = new ArrayList<>();
-        for (StationDTO stationDTO : byLoadingNo) {
-            StationVO transform = StationTranslator.transform(stationDTO);
-            stations.add(transform);
         }
         return stations;
     }
