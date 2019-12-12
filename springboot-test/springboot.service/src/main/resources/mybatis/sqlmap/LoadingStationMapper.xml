@@ -13,6 +13,9 @@
     <update id="setManualComplete">
         update t_loadingstation set station_status='arrived' where loading_id=#{loadingId}
     </update>
+    <delete id="removeLoadingStations">
+        delete from t_loadingstation where loading_id=#{loadingId}
+    </delete>
     <!--运单创建时添加站点信息-->
     <insert id="addRelations" parameterType="loadingStationDTO">
         insert into t_loadingstation (loading_id,

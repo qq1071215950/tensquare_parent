@@ -41,14 +41,16 @@
             loading_no,
             line_name,
             actual_send_time,
-            actual_complate_time，
+            actual_complete_time,
+            actual_arrival_time,
             plan_send_time,
-            plan_complate_time,
+            plan_complete_time,
             temperature_layer,
-            price_quote，
-            transfer_type，
-            forwarder，
-            plate_no，
+            loading_state as loading_status,
+            price_quote,
+            transfer_type,
+            forwarder,
+            plate_no,
             driver_name,
             tel
               from t_loading
@@ -109,6 +111,34 @@
     <!--更新实际完成时间-->
     <update id="updateActualCompleteTime">
         update t_loading set loading_state='complete',actual_complate_time=#{actualCompleteTime} where id=#{loadingId}
+    </update>
+    <!--更新运单内容-->
+    <update id="updateLoading">
+        update t_loading set
+        <if test="sendStationId!=null">
+            send_station_id=#{sendStationId},
+        </if>
+        <if test="endStationId!=null">
+            end_station_id=#{endStationId},
+        </if><if test="sendStationId!=null">
+            send_station_id=#{sendStationId},
+        </if><if test="endStationId!=null">
+            send_station_id=#{endStationId},
+        </if><if test="sendStationId!=null">
+            send_station_id=#{sendStationId},
+        </if><if test="sendStationId!=null">
+            send_station_id=#{sendStationId},
+        </if><if test="sendStationId!=null">
+            send_station_id=#{sendStationId},
+        </if><if test="sendStationId!=null">
+            send_station_id=#{sendStationId},
+        </if><if test="sendStationId!=null">
+            send_station_id=#{sendStationId},
+        </if><if test="sendStationId!=null">
+            send_station_id=#{sendStationId},
+        </if><if test="sendStationId!=null">
+            send_station_id=#{sendStationId},
+        </if>
     </update>
 
 </mapper>

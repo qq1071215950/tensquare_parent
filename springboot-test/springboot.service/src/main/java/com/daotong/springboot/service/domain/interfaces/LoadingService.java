@@ -33,14 +33,14 @@ public interface LoadingService {
      * 手动设置完成运单
      *
      * @param loadingId
-     * @param complateTime
+     * @param completeTime
      */
-    void manualComplete(Integer loadingId,LocalDateTime complateTime);
+    void manualComplete(Integer loadingId,LocalDateTime completeTime);
 
     /**
      * 编辑运单
      *
-     * @param loadingStationDTO
+     * @param loadingDTO
      */
-    void updateLoadingMsg(LoadingStationDTO loadingStationDTO);
+    void updateLoadingMsg(LoadingDTO loadingDTO);
 }

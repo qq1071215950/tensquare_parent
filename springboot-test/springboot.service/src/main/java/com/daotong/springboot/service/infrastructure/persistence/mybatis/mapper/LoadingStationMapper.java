@@ -42,4 +42,10 @@ public interface LoadingStationMapper {
      * @param loadingStation
      */
     void addRelations(LoadingStationDTO loadingStation);
+
+    /**
+     * 根据运单id删除站点状态关联
+     * @param loadingId
+     */
+    void removeLoadingStations(@Param(value = "loadingId") Integer loadingId);
 }

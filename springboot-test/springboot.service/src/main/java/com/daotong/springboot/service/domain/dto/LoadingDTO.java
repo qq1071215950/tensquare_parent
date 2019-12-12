@@ -37,9 +37,9 @@ public class LoadingDTO {
     @ApiModelProperty(value = "计划首站出发时间",required = true)
     private LocalDateTime planSendTime;
     @ApiModelProperty(value = "计划运单完成时间",required = true)
-    private LocalDateTime planComplateTime;
+    private LocalDateTime planCompleteTime;
     @ApiModelProperty(value = "运单状态")
-    private LoadingEnum loadingEnum;
+    private String loadingStatus;
     @ApiModelProperty(value = "商家")
     private String saler;
     @ApiModelProperty(value = "运输商")
@@ -52,6 +52,8 @@ public class LoadingDTO {
     private String driverName;
     @ApiModelProperty(value = "联系方式")
     private String tel;
+    @ApiModelProperty(value = "是否发布")
+    private Boolean publish;
     /**
      * 运单包含的站点状态
      */

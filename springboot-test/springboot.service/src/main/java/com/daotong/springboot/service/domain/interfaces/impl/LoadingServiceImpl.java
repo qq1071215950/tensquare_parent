@@ -42,7 +42,7 @@ public class LoadingServiceImpl implements LoadingService {
         String loadingNo = "L"+timestamp;
         loading.setLoadingNo(loadingNo);
         //设置订单状态为初始化
-        loading.setLoadingEnum(LoadingEnum.ARRIVAL);
+        loading.setLoadingStatus(LoadingEnum.ARRIVAL.getLoadingStatus());
         //设置计划首站发车时间
         loading.setPlanSendTime(loading.getPlanSendTime());
         //首站计划到达时间
@@ -64,7 +64,12 @@ public class LoadingServiceImpl implements LoadingService {
 
     @Override
     public List<LoadingVO> getByQueryParam(LoadingQueryParam loadingQueryParam) {
-        PageHelper.startPage(loadingQueryParam.getCurPage(),loadingQueryParam.getPageSize());
+        Integer curPage = loadingQueryParam.getCurPage();
+        Integer pageSize = loadingQueryParam.getPageSize();
+        if(curPage<1||pageSize<1){
+            throw new RuntimeException("Illegal MethodParam: pageSize/curPage");
+        }
+        PageHelper.startPage(curPage,pageSize);
         Page<LoadingVO> byQueryParam = loadingMapper.getByQueryParam(loadingQueryParam);
         if(byQueryParam==null){
             return null;
@@ -86,7 +91,20 @@ public class LoadingServiceImpl implements LoadingService {
     }
 
     @Override
-    public void updateLoadingMsg(LoadingStationDTO loadingStationDTO) {
+    public void updateLoadingMsg(LoadingDTO loadingDTO) {
+        //可编辑状态校验
+        String stationStatus = loadingDTO.getLoadingStatus();
+        if(!LoadingEnum.ARRIVAL.getLoadingStatus().equals(stationStatus)){
+            throw new RuntimeException("当前状态不可编辑");
+        }
+        loadingMapper.updateLoading(loadingDTO);
+        //站点状态信息更新
+        List<LoadingStationDTO> stations = loadingDTO.getStations();
+        //删除原有站点联系
+        loadingStationMapper.removeLoadingStations(loadingDTO.getLoadingId());
+        for (LoadingStationDTO station : stations) {
+            loadingStationMapper.addRelations(station);
+        }
 
     }
 

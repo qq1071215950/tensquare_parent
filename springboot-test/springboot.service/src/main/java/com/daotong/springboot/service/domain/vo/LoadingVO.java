@@ -36,15 +36,15 @@ public class LoadingVO {
 
     private LocalDateTime planSendTime;
 
-    private LocalDateTime planComplateTime;
+    private LocalDateTime planCompleteTime;
 
     private LocalDateTime actualArrivalTime;
 
     private LocalDateTime actualSendTime;
 
-    private LocalDateTime actualComlateTime;
+    private LocalDateTime actualCompleteTime;
 
-    private LoadingEnum loadingEnum;
+    private String loadingStatus;
 
     private String saler;
 

@@ -58,8 +58,8 @@ public class LoadingController {
     }
     @ApiOperation(httpMethod = "POST",value = "运单详情编辑")
     @PostMapping("/update")
-    public RestResponse updateLoadingMsg(@RequestBody LoadingStationDTO loadingStationDTO){
-        loadingService.updateLoadingMsg(loadingStationDTO);
+    public RestResponse updateLoadingMsg(@RequestBody LoadingDTO loadingDTO){
+        loadingService.updateLoadingMsg(loadingDTO);
         return RestResponse.success();
     }
 }

@@ -2,6 +2,7 @@ package com.daotong.springboot.service.infrastructure.persistence.mybatis.mapper
 
 import com.daotong.springboot.service.domain.dto.LoadingDTO;
 import com.daotong.springboot.service.domain.dto.LoadingQueryParam;
+import com.daotong.springboot.service.domain.dto.LoadingStationDTO;
 import com.daotong.springboot.service.domain.vo.LoadingVO;
 import com.github.pagehelper.Page;
 import org.apache.ibatis.annotations.Mapper;
@@ -35,9 +36,9 @@ public interface LoadingMapper {
      * 手动设置完成运单
      *
      * @param loadingId
-     * @param complateTime
+     * @param completeTime
      */
-    void manualComplete(@Param(value = "loadingId") Integer loadingId, @Param(value = "complateTime") LocalDateTime complateTime);
+    void manualComplete(@Param(value = "loadingId") Integer loadingId, @Param(value = "completeTime") LocalDateTime completeTime);
 
     /**
      * 更新实际到达首站时间
@@ -66,4 +67,9 @@ public interface LoadingMapper {
     void updateActualCompleteTime(@Param(value = "loadingId") Integer loadingId,
                                   @Param(value = "actualCompleteTime") LocalDateTime actualCompleteTime);
 
+    /**
+     * 更新运单内容
+     * @param loadingDTO
+     */
+    void updateLoading(LoadingDTO loadingDTO);
 }

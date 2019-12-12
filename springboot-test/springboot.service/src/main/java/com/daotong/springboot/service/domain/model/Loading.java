@@ -33,13 +33,13 @@ public class Loading {
     @ApiModelProperty(value = "首站点计划发车时间")
     private LocalDateTime planSendTime;
     @ApiModelProperty(value = "计划完成时间")
-    private LocalDateTime planComplateTime;
+    private LocalDateTime planCompleteTime;
     @ApiModelProperty(value = "实际到达首站点时间")
     private LocalDateTime actualArrivalTime;
     @ApiModelProperty(value = "首站点实际发车时间")
     private LocalDateTime actualSendTime;
     @ApiModelProperty(value = "实际完成时间")
-    private LocalDateTime actualComlateTime;
+    private LocalDateTime actualCompleteTime;
     @ApiModelProperty(value = "运单状态")
     private LoadingEnum loadingEnum;
     @ApiModelProperty(value = "商家")
@@ -54,4 +54,6 @@ public class Loading {
     private String driverName;
     @ApiModelProperty(value = "联系电话")
     private String tel;
+    @ApiModelProperty(value = "是否发布")
+    private Boolean publish;
 }
