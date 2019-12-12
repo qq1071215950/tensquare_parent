@@ -3,7 +3,6 @@ package com.daotong.springboot.service.domain.interfaces.impl;
 import com.daotong.springboot.service.domain.dto.LoadingDTO;
 import com.daotong.springboot.service.domain.dto.LoadingQueryParam;
 import com.daotong.springboot.service.domain.dto.LoadingStationDTO;
-import com.daotong.springboot.service.domain.dto.StationDTO;
 import com.daotong.springboot.service.domain.enums.LoadingEnum;
 import com.daotong.springboot.service.domain.enums.LoadingStationEnum;
 import com.daotong.springboot.service.domain.interfaces.LoadingService;
@@ -13,6 +12,7 @@ import com.daotong.springboot.service.infrastructure.persistence.mybatis.mapper.
 import com.daotong.springboot.service.infrastructure.persistence.mybatis.mapper.StationMapper;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +24,7 @@ import java.util.*;
  * @author Zdh 2019/12/6 17:52
  */
 @Service
+@Slf4j
 public class LoadingServiceImpl implements LoadingService {
     @Autowired(required = false)
     private LoadingMapper loadingMapper;
@@ -64,6 +65,7 @@ public class LoadingServiceImpl implements LoadingService {
 
     @Override
     public List<LoadingVO> getByQueryParam(LoadingQueryParam loadingQueryParam) {
+        log.info(loadingQueryParam.toString());
         Integer curPage = loadingQueryParam.getCurPage();
         Integer pageSize = loadingQueryParam.getPageSize();
         if(curPage<1||pageSize<1){
@@ -106,6 +108,13 @@ public class LoadingServiceImpl implements LoadingService {
             loadingStationMapper.addRelations(station);
         }
 
+    }
+
+    @Override
+    public void publish(Integer[] loadingIds) {
+        for (int i = 0; i < loadingIds.length; i++) {
+            loadingMapper.updatePublish(loadingIds[i]);
+        }
     }
 
     /**

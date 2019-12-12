@@ -43,4 +43,10 @@ public interface LoadingService {
      * @param loadingDTO
      */
     void updateLoadingMsg(LoadingDTO loadingDTO);
+
+    /**
+     * 批量编辑运单状态为发布
+     * @param loadingIds
+     */
+    void publish(Integer[] loadingIds);
 }

@@ -17,7 +17,8 @@
                                 plateNo,
                                 temperature_layer,
                                 driver_name,
-                                tel)
+                                tel,
+                                publish)
                 values (#{loadingId},
                         #{loadingNo},
                         #{sendStationId},
@@ -32,9 +33,10 @@
                         #{plateNo},
                         #{temperatureLayer},
                         #{driverName},
-                        #{tel})
+                        #{tel},
+                        0)
     </insert>
-    <!--查询订单-->
+    <!--条件组合查询发布状态的订单-->
     <select id="getByQueryParam" parameterType="loadingQueryParam" resultType="loadingVO">
       select id as loading_id,
             saler,
@@ -120,25 +122,33 @@
         </if>
         <if test="endStationId!=null">
             end_station_id=#{endStationId},
-        </if><if test="sendStationId!=null">
-            send_station_id=#{sendStationId},
-        </if><if test="endStationId!=null">
-            send_station_id=#{endStationId},
-        </if><if test="sendStationId!=null">
-            send_station_id=#{sendStationId},
-        </if><if test="sendStationId!=null">
-            send_station_id=#{sendStationId},
-        </if><if test="sendStationId!=null">
-            send_station_id=#{sendStationId},
-        </if><if test="sendStationId!=null">
-            send_station_id=#{sendStationId},
-        </if><if test="sendStationId!=null">
-            send_station_id=#{sendStationId},
-        </if><if test="sendStationId!=null">
-            send_station_id=#{sendStationId},
-        </if><if test="sendStationId!=null">
-            send_station_id=#{sendStationId},
         </if>
+        <if test="saler!=null and saler!=''">
+            saler=#{saler},
+        </if>
+        <if test="temperatureLayer!=null and temperature_layer!=''">
+            temperature_layer=#{temperatureLayer},
+        </if>
+        <if test="forwarder!=null and forwarder!=''">
+            forwarder=#{forwarder},
+        </if>
+        <if test="plateNo!=null and plateNo!=''">
+            plate_no=#{plateNo},
+        </if>
+        <if test="priceQuote!=null and priceQuote!=''">
+            price_quote=#{priceQuote},
+        </if>
+        <if test="driverName!=null and driverName!=''">
+            driver_name=#{driverName},
+        </if>
+        <if test="transferType!=null">
+            transfer_type=#{transferType},
+        </if>
+        where id=#{loadingId}
+    </update>
+    <!--更新发布状态-->
+    <update id="updatePublish">
+        update t_loading set publish=1 where id=#{loadingId}
     </update>
 
 </mapper>

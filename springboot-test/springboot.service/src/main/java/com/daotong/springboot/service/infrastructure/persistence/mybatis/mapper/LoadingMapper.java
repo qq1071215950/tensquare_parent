@@ -47,7 +47,7 @@ public interface LoadingMapper {
      * @param actualArrivalTime
      */
     void updateActualArrivalTime(@Param(value = "loadingId") Integer loadingId,
-                                 @Param(value = "ActualArrivalTime") LocalDateTime actualArrivalTime);
+                                 @Param(value = "actualArrivalTime") LocalDateTime actualArrivalTime);
 
     /**
      * 更新实际首站发车时间
@@ -69,7 +69,15 @@ public interface LoadingMapper {
 
     /**
      * 更新运单内容
+     *
      * @param loadingDTO
      */
     void updateLoading(LoadingDTO loadingDTO);
+
+    /**
+     * 编辑运单为发布状态
+     *
+     * @param loadingId
+     */
+    void updatePublish(@Param(value = "loadingId") Integer loadingId);
 }

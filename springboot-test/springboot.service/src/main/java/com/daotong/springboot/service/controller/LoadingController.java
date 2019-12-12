@@ -63,4 +63,10 @@ public class LoadingController {
         loadingService.updateLoadingMsg(loadingDTO);
         return RestResponse.success();
     }
+    @ApiOperation(httpMethod = "GET",value = "运单发布")
+    @GetMapping("/publish")
+    public RestResponse publishLoading(@RequestParam(value = "loadingIds") Integer[] loadingIds){
+        loadingService.publish(loadingIds);
+        return RestResponse.success();
+    }
 }

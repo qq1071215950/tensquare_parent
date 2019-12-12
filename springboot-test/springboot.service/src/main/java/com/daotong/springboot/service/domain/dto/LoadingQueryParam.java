@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.time.LocalDateTime;
 
@@ -13,6 +14,7 @@ import java.time.LocalDateTime;
  */
 @Setter
 @Getter
+@ToString
 @ApiModel(value = "运单查询条件封装类",description = "多条件组合查询")
 public class LoadingQueryParam {
     @ApiModelProperty(value = "运单id")
@@ -28,7 +30,7 @@ public class LoadingQueryParam {
     @ApiModelProperty(value = "计划首站发车时间")
     private LocalDateTime planSendTime;
     @ApiModelProperty(value = "计划完成时间")
-    private LocalDateTime planComplateTime;
+    private LocalDateTime planCompleteTime;
     @ApiModelProperty(value = "运单状态")
     private LoadingEnum loadingEnum;
     @ApiModelProperty(value = "商家")
@@ -46,11 +48,11 @@ public class LoadingQueryParam {
     /**
      * 当前页码
      */
-    @ApiModelProperty(value = "分页查询当前页码")
-    private Integer curPage;
+    @ApiModelProperty(value = "分页查询当前页码",notes = "默认查询第一页")
+    private Integer curPage = 1;
     /**
      * 每页展示数量
      */
-    @ApiModelProperty(value = "分页查询每页展示数量")
-    private Integer pageSize;
+    @ApiModelProperty(value = "分页查询每页展示数量",notes = "默认每页展示10")
+    private Integer pageSize = 10;
 }
