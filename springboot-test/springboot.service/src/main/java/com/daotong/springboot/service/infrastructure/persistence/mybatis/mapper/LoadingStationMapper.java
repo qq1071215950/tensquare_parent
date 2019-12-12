@@ -34,7 +34,7 @@ public interface LoadingStationMapper {
      *
      * @param loadingId
      */
-    void setManualComplete(@Param(value = "loadingId") Integer loadingId);
+    void setManualComplete(@Param(value = "loadingId") Long loadingId);
 
     /**
      * 运单创建时添加站点信息
@@ -47,5 +47,5 @@ public interface LoadingStationMapper {
      * 根据运单id删除站点状态关联
      * @param loadingId
      */
-    void removeLoadingStations(@Param(value = "loadingId") Integer loadingId);
+    void removeLoadingStations(@Param(value = "loadingId") Long loadingId);
 }

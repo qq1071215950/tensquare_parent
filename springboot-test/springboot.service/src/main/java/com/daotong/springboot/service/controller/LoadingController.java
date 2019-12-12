@@ -3,13 +3,11 @@ package com.daotong.springboot.service.controller;
 import com.daotong.springboot.service.base.RestResponse;
 import com.daotong.springboot.service.domain.dto.LoadingDTO;
 import com.daotong.springboot.service.domain.dto.LoadingQueryParam;
-import com.daotong.springboot.service.domain.dto.LoadingStationDTO;
 import com.daotong.springboot.service.domain.dto.LoadingStationEnterParam;
 import com.daotong.springboot.service.domain.interfaces.LoadingService;
 import com.daotong.springboot.service.domain.interfaces.LoadingStationService;
 import com.daotong.springboot.service.domain.vo.LoadingVO;
 import io.swagger.annotations.Api;
-
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +44,7 @@ public class LoadingController {
     }
     @ApiOperation(httpMethod = "GET",value = "手动完成运单接口")
     @GetMapping("/manual_complete")
-    public RestResponse manualComplete(@ApiParam(value = "运单id") @RequestParam(value = "loadingId") Integer loadingId,
+    public RestResponse manualComplete(@ApiParam(value = "运单id") @RequestParam(value = "loadingId") Long loadingId,
                                        @ApiParam(value = "当前时间")@RequestParam(value = "currentTime") LocalDateTime currentTime){
         loadingService.manualComplete(loadingId,currentTime);
         return RestResponse.success();
@@ -65,7 +63,7 @@ public class LoadingController {
     }
     @ApiOperation(httpMethod = "GET",value = "运单发布")
     @GetMapping("/publish")
-    public RestResponse publishLoading(@RequestParam(value = "loadingIds") Integer[] loadingIds){
+    public RestResponse publishLoading(@RequestParam(value = "loadingIds") Long[] loadingIds){
         loadingService.publish(loadingIds);
         return RestResponse.success();
     }

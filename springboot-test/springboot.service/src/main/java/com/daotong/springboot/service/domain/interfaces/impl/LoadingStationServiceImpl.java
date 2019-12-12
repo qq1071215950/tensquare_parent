@@ -27,7 +27,7 @@ public class LoadingStationServiceImpl implements LoadingStationService {
     @Override
     public void updateStatus(LoadingStationEnterParam loadingStationEnterParam) {
         //运单id
-        Integer loadingId = loadingStationEnterParam.getLoadingId();
+        Long loadingId = loadingStationEnterParam.getLoadingId();
         //当前站点序号
         Integer seq = loadingStationEnterParam.getSeq();
         //运单包含的所有站点序号集合
@@ -61,7 +61,7 @@ public class LoadingStationServiceImpl implements LoadingStationService {
     private void updateToLoading(LocalDateTime actualArrivalTime,
                                         LocalDateTime actualSendTime,
                                         Integer loadingStationId,
-                                        Integer loadingId){
+                                        Long loadingId){
         //到达
         if (actualArrivalTime!=null) {
             loadingStationMapper.updateActualArrivalTime(actualArrivalTime, loadingStationId);
@@ -95,7 +95,7 @@ public class LoadingStationServiceImpl implements LoadingStationService {
      * @param loadingStationId
      * @param loadingId
      */
-    private void updateCompleteToLoading(LocalDateTime actualArrivalTime,Integer loadingStationId,Integer loadingId){
+    private void updateCompleteToLoading(LocalDateTime actualArrivalTime,Integer loadingStationId,Long loadingId){
         loadingStationMapper.updateActualArrivalTime(actualArrivalTime,loadingStationId);
         //更新运单状态
         loadingMapper.updateActualCompleteTime(loadingId,actualArrivalTime);

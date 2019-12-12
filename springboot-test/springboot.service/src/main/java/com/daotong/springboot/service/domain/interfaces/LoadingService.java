@@ -35,7 +35,7 @@ public interface LoadingService {
      * @param loadingId
      * @param completeTime
      */
-    void manualComplete(Integer loadingId,LocalDateTime completeTime);
+    void manualComplete(Long loadingId,LocalDateTime completeTime);
 
     /**
      * 编辑运单
@@ -48,5 +48,5 @@ public interface LoadingService {
      * 批量编辑运单状态为发布
      * @param loadingIds
      */
-    void publish(Integer[] loadingIds);
+    void publish(Long[] loadingIds);
 }

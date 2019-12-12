@@ -11,13 +11,15 @@
                                 station_count,
                                 plan_arrival_time,
                                 plan_send_time,
-                                plan_complate_time,
+                                plan_complete_time,
                                 saler,
                                 forwarder,
-                                plateNo,
+                                plate_no,
                                 temperature_layer,
                                 driver_name,
                                 tel,
+                                price_quote,
+                                loading_state,
                                 publish)
                 values (#{loadingId},
                         #{loadingNo},
@@ -27,13 +29,15 @@
                         #{stationCount},
                         #{planArrivalTime},
                         #{planSendTime},
-                        #{planComplateTime},
+                        #{planCompleteTime},
                         #{saler},
                         #{forwarder},
                         #{plateNo},
                         #{temperatureLayer},
                         #{driverName},
                         #{tel},
+                        #{priceQuote},
+                        #{loadingStatus},
                         0)
     </insert>
     <!--条件组合查询发布状态的订单-->
@@ -72,8 +76,8 @@
                   <if test="planSendTime!=null">
                       and plan_send_time=#{planSendTime}
                   </if>
-                  <if test="planComplateTime!=null">
-                      and plan_complate_time=#{planComplateTime}
+                  <if test="planCompleteTime!=null">
+                      and plan_complete_time=#{planCompleteTime}
                   </if>
                   <if test="loadingEnum!=null and loadingEnum!=''">
                       and loading_state=#{loadingEnum}
@@ -100,7 +104,7 @@
     </select>
     <!--手动完成运单-->
     <update id="manualComplete">
-      update t_loading set loading_state='manual',actual_complate_time=#{complateTime} where id=#{loadingId}
+      update t_loading set loading_state='manual',actual_complete_time=#{completeTime} where id=#{loadingId}
     </update>
     <!--更新实际到达首站时间-->
     <update id="updateActualArrivalTime">
@@ -112,7 +116,7 @@
     </update>
     <!--更新实际完成时间-->
     <update id="updateActualCompleteTime">
-        update t_loading set loading_state='complete',actual_complate_time=#{actualCompleteTime} where id=#{loadingId}
+        update t_loading set loading_state='complete',actual_complete_time=#{actualCompleteTime} where id=#{loadingId}
     </update>
     <!--更新运单内容-->
     <update id="updateLoading">

@@ -18,7 +18,7 @@ public class LoadingStationEnterParam {
     @ApiModelProperty(value = "站点状态信息id",required = true)
     private Integer id;
     @ApiModelProperty(value = "运单id",required = true)
-    private Integer loadingId;
+    private Long loadingId;
     @ApiModelProperty(value = "站点序号",required = true)
     private Integer seq;
     @ApiModelProperty(value = "运单包含的站点序号集合",required = true)

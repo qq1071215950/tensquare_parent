@@ -3,10 +3,12 @@ package com.daotong.springboot.service.domain.dto;
 import com.daotong.springboot.service.domain.enums.LoadingEnum;
 import com.daotong.springboot.service.domain.model.LoadingStation;
 import com.daotong.springboot.service.domain.model.Station;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -17,11 +19,11 @@ import java.util.List;
  */
 @Data
 @ApiModel(value = "运单信息传输类")
-public class LoadingDTO {
+public class LoadingDTO implements Serializable {
     @ApiModelProperty(value = "运单号",dataType = "string")
     private String loadingNo;
     @ApiModelProperty(value = "运单id",notes = "进出站时必须有该参数")
-    private Integer loadingId;
+    private Long loadingId;
     @ApiModelProperty(value = "首发站ID",required = true)
     private Integer sendStationId;
     @ApiModelProperty(value = "末站ID",required = true)
@@ -33,10 +35,13 @@ public class LoadingDTO {
     @ApiModelProperty(value = "报价方式")
     private String priceQuote;
     @ApiModelProperty(value = "计划首站到达时间",required = true)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss")
     private LocalDateTime planArrivalTime;
     @ApiModelProperty(value = "计划首站出发时间",required = true)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss")
     private LocalDateTime planSendTime;
     @ApiModelProperty(value = "计划运单完成时间",required = true)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss")
     private LocalDateTime planCompleteTime;
     @ApiModelProperty(value = "运单状态")
     private String loadingStatus;

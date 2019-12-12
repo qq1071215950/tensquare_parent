@@ -38,7 +38,7 @@ public interface LoadingMapper {
      * @param loadingId
      * @param completeTime
      */
-    void manualComplete(@Param(value = "loadingId") Integer loadingId, @Param(value = "completeTime") LocalDateTime completeTime);
+    void manualComplete(@Param(value = "loadingId") Long loadingId, @Param(value = "completeTime") LocalDateTime completeTime);
 
     /**
      * 更新实际到达首站时间
@@ -46,7 +46,7 @@ public interface LoadingMapper {
      * @param loadingId
      * @param actualArrivalTime
      */
-    void updateActualArrivalTime(@Param(value = "loadingId") Integer loadingId,
+    void updateActualArrivalTime(@Param(value = "loadingId") Long loadingId,
                                  @Param(value = "actualArrivalTime") LocalDateTime actualArrivalTime);
 
     /**
@@ -55,7 +55,7 @@ public interface LoadingMapper {
      * @param loadingId
      * @param actualSendTime
      */
-    void updateActualSendTime(@Param(value = "loadingId") Integer loadingId,
+    void updateActualSendTime(@Param(value = "loadingId") Long loadingId,
                               @Param(value = "actualSendTime") LocalDateTime actualSendTime);
 
     /**
@@ -64,7 +64,7 @@ public interface LoadingMapper {
      * @param loadingId
      * @param actualCompleteTime
      */
-    void updateActualCompleteTime(@Param(value = "loadingId") Integer loadingId,
+    void updateActualCompleteTime(@Param(value = "loadingId") Long loadingId,
                                   @Param(value = "actualCompleteTime") LocalDateTime actualCompleteTime);
 
     /**
@@ -79,5 +79,5 @@ public interface LoadingMapper {
      *
      * @param loadingId
      */
-    void updatePublish(@Param(value = "loadingId") Integer loadingId);
+    void updatePublish(@Param(value = "loadingId") Long loadingId);
 }

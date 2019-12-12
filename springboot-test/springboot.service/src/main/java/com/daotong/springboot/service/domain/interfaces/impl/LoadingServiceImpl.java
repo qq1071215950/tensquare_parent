@@ -34,8 +34,8 @@ public class LoadingServiceImpl implements LoadingService {
     private StationMapper stationMapper;
     @Override
     public int saveLoading(LoadingDTO loading) {
-        //随机生成UUID作为运单ID
-        Integer loadingId = getUUID();
+        //根据时间戳生成ID作为运单ID
+        Long loadingId = getID();
         loading.setLoadingId(loadingId);
         //生成运单号 字母拼接时间戳
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
@@ -44,10 +44,6 @@ public class LoadingServiceImpl implements LoadingService {
         loading.setLoadingNo(loadingNo);
         //设置订单状态为初始化
         loading.setLoadingStatus(LoadingEnum.ARRIVAL.getLoadingStatus());
-        //设置计划首站发车时间
-        loading.setPlanSendTime(loading.getPlanSendTime());
-        //首站计划到达时间
-        loading.setPlanArrivalTime(loading.getPlanArrivalTime());
         //运单-站点状态信息添加
         List<LoadingStationDTO> loadingStations= loading.getStations();
         if(loadingStations==null){
@@ -57,6 +53,7 @@ public class LoadingServiceImpl implements LoadingService {
             LoadingStationDTO loadingStation = loadingStations.get(i);
             //运单站点状态初始化并更新到数据库
             loadingStation.setStationStatus(LoadingStationEnum.UN_START.getStatus());
+            loadingStation.setLoadingId(loadingId);
             loadingStationMapper.addRelations(loadingStation);
         }
         int i = loadingMapper.saveLoading(loading);
@@ -85,7 +82,7 @@ public class LoadingServiceImpl implements LoadingService {
     }
 
     @Override
-    public void manualComplete(Integer loadingId, LocalDateTime completeTime) {
+    public void manualComplete(Long loadingId, LocalDateTime completeTime) {
         //运单表修改完成状态
         loadingMapper.manualComplete(loadingId,completeTime);
         //运单站点表修改
@@ -111,7 +108,7 @@ public class LoadingServiceImpl implements LoadingService {
     }
 
     @Override
-    public void publish(Integer[] loadingIds) {
+    public void publish(Long [] loadingIds) {
         for (int i = 0; i < loadingIds.length; i++) {
             loadingMapper.updatePublish(loadingIds[i]);
         }
@@ -121,11 +118,10 @@ public class LoadingServiceImpl implements LoadingService {
      * 生成随机ID
      * @return
      */
-    private Integer getUUID(){
-        UUID uuid=UUID.randomUUID();
-        String str = uuid.toString();
-        String replace = str.replace("-", "");
-        return Integer.valueOf(replace);
+    private Long getID(){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
+        String timestamp = formatter.format(LocalDateTime.now());
+        return Long.valueOf(timestamp);
     }
 
 }
