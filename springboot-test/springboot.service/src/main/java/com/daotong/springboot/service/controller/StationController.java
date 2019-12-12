@@ -21,6 +21,7 @@ import java.util.List;
 @Api(description = "站点接口详情",value = "API-StationController")
 @RestController
 @RequestMapping("/station")
+@CrossOrigin
 public class StationController {
     @Autowired
     private StationService stationService;
