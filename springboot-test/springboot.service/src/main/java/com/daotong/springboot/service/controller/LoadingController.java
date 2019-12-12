@@ -24,6 +24,7 @@ import java.util.List;
 @Api(description = "运单接口详情", value = "API-LoadingController")
 @RestController
 @RequestMapping("/loading")
+@CrossOrigin
 public class LoadingController {
     @Autowired
     private LoadingService loadingService;
