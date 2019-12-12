@@ -1,16 +1,10 @@
 package com.daotong.springboot.service.infrastructure.persistence.mybatis.mapper;
 
 import com.daotong.springboot.service.domain.dto.LoadingStationDTO;
-import com.daotong.springboot.service.domain.dto.StationDTO;
-import com.daotong.springboot.service.domain.model.LoadingStation;
 import com.daotong.springboot.service.domain.model.NewStation;
-import com.daotong.springboot.service.domain.model.Station;
-import com.daotong.springboot.service.domain.query.QueryStation;
-import com.github.pagehelper.Page;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -60,11 +54,4 @@ public interface StationMapper {
      */
     List<LoadingStationDTO> getByLoadingId(@Param(value = "loadingId") Integer loadingId);
 
-    /**
-     * 根据站点id
-     *
-     * @param stationId
-     * @return
-     */
-    StationDTO getByStationId(@Param(value = "stationId") Integer stationId);
 }

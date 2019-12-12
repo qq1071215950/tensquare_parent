@@ -1,10 +1,6 @@
 package com.daotong.springboot.service.infrastructure.persistence.mybatis.mapper;
 
 import com.daotong.TestMybatisConfig;
-import com.daotong.springboot.service.domain.dto.StationDTO;
-import com.daotong.springboot.service.domain.enums.LoadingEnum;
-import com.github.pagehelper.Page;
-import com.github.pagehelper.PageHelper;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
@@ -13,10 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest(classes = {
         TestMybatisConfig.class,
         StationMapper.class

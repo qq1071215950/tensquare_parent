@@ -94,11 +94,6 @@
     </select>
 
 
-    <!--根据id 查询-->
-    <select id="getByStationId" parameterType="int" resultType="stationDTO">
-        select id,code,name,province_name,city_name,area_name from t_station where id=#{stationId}
-    </select>
-
     <!--根据运单号查询站点信息和状态-->
     <select id="getByLoadingId" parameterType="int" resultType="loadingStationDTO">
         select s.name as station_name,

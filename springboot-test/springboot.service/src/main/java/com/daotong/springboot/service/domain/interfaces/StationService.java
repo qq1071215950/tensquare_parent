@@ -2,15 +2,8 @@ package com.daotong.springboot.service.domain.interfaces;
 
 import com.daotong.springboot.service.domain.bo.StationBO;
 import com.daotong.springboot.service.domain.bo.UpdateStationBO;
-import com.daotong.springboot.service.domain.dto.StationDTO;
 import com.daotong.springboot.service.domain.query.QueryStation;
 import com.daotong.springboot.service.domain.vo.PageVO;
-import com.daotong.springboot.service.domain.vo.StationVO;
-import com.github.pagehelper.Page;
-import org.apache.ibatis.annotations.Param;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 /**
  * @author Zdh 2019/12/6 10:08

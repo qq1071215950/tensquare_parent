@@ -3,17 +3,14 @@ package com.daotong.springboot.service.controller;
 import com.daotong.springboot.service.base.RestResponse;
 import com.daotong.springboot.service.domain.bo.StationBO;
 import com.daotong.springboot.service.domain.bo.UpdateStationBO;
-import com.daotong.springboot.service.domain.dto.StationDTO;
 import com.daotong.springboot.service.domain.interfaces.StationService;
 import com.daotong.springboot.service.domain.query.QueryStation;
 import com.daotong.springboot.service.domain.vo.PageVO;
-import com.daotong.springboot.service.domain.vo.StationVO;
-import io.swagger.annotations.*;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import javax.validation.constraints.NotNull;
-import java.util.List;
 
 /**
  * @author Zdh 2019/12/6 10:52
