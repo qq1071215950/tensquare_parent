@@ -7,7 +7,7 @@
     </update>
     <!--更新站点实际出发时间-->
     <update id="updateActualSendTime">
-        update t_loadingstation set actual_send_time=#{actualSendTime},station_status='start'where id=#{loadingStationId}
+        update t_loadingstation set actual_send_time=#{actualSendTime},station_status='start' where id=#{loadingStationId}
     </update>
     <!--根据运单号将所有状态设置为完成-->
     <update id="setManualComplete">
@@ -17,7 +17,7 @@
         delete from t_loadingstation where loading_id=#{loadingId}
     </delete>
     <select id="getSeqs" resultType="java.lang.Integer">
-        select seq from t_loadingstation where loading_id=#{loadingId}
+        select seq from t_loadingstation where loading_id=#{loadingId} order by seq
     </select>
     <!--运单创建时添加站点信息-->
     <insert id="addRelations" parameterType="loadingStationDTO">

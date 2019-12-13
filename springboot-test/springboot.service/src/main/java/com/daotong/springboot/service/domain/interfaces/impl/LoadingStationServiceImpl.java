@@ -57,6 +57,15 @@ public class LoadingStationServiceImpl implements LoadingStationService {
         Long loadingId = loadingStation.getLoadingId();
         //站点信息id
         Integer loadingStationId = loadingStation.getId();
+        Integer seq = loadingStation.getSeq();
+        //运单包含的所有站点序号集合
+        ArrayList<Integer> seqs = loadingStationMapper.getSeqs(loadingId);
+        //首站
+        if (seq.equals(seqs.get(0))) {
+            loadingStationMapper.updateActualSendTime(actualSendTime, loadingStationId);
+            //更新运单状态 首站到达
+            loadingMapper.updateActualSendTime(loadingId,actualSendTime);
+        }
         //出发
         loadingStationMapper.updateActualSendTime(actualSendTime, loadingStationId);
     }
