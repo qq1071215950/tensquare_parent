@@ -64,6 +64,10 @@ public class LoadingServiceImpl implements LoadingService {
             loadingStationDTO.setLoadingId(loadingId);
             loadingStationMapper.addRelations(loadingStationDTO);
         }
+        //设置首站计划到达时间
+        transfer.setPlanArrivalTime(loadingStations.get(0).getPlanArrivalTime());
+        //设置首站出发时间
+        transfer.setPlanSendTime(loadingStations.get(0).getPlanSendTime());
         int i = loadingMapper.saveLoading(transfer);
         return i;
     }
@@ -192,7 +196,7 @@ public class LoadingServiceImpl implements LoadingService {
         int size = loadingStations.size();
         if(size !=MIN_LOADING_STATION_COUNT){
             for (int i = size-1; i > 0; i--) {
-                if(loadingStations.get(i).equals(loadingStations.get(i--))){
+                if(loadingStations.get(i).equals(loadingStations.get(i-1))){
                     throw new RuntimeException("站点信息重复");
                 }
             }
@@ -211,11 +215,13 @@ public class LoadingServiceImpl implements LoadingService {
         loadingDTO.setDriverName(loading.getDriverName());
         loadingDTO.setForwarder(loading.getForwarder());
         loadingDTO.setLineName(loading.getLineName());
+        loadingDTO.setStationCount(loading.getStationCount());
         loadingDTO.setPlateNo(loading.getPlateNo());
         loadingDTO.setPriceQuote(loading.getPriceQuote());
         loadingDTO.setSaler(loading.getSaler());
         loadingDTO.setTel(loading.getTel());
         loadingDTO.setTemperatureLayer(loading.getTemperatureLayer());
+        loadingDTO.setPlanCompleteTime(loading.getPlanCompleteTime());
         return loadingDTO;
     }
     private LoadingStationDTO transfer(LoadingStationBO loadingStation){

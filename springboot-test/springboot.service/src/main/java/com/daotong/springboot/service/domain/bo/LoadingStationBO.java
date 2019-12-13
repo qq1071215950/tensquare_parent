@@ -6,6 +6,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 /**
  * @author Zdh 2019/12/13 10:23
@@ -31,4 +32,24 @@ public class LoadingStationBO {
     private LocalDateTime planSendTime;
     @ApiModelProperty(value = "站点状态")
     private String stationStatus;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        LoadingStationBO that = (LoadingStationBO) o;
+        return Objects.equals(stationName, that.stationName) &&
+                Objects.equals(id, that.id) &&
+                Objects.equals(loadingId, that.loadingId) &&
+                Objects.equals(stationId, that.stationId) &&
+                Objects.equals(seq, that.seq) &&
+                Objects.equals(planArrivalTime, that.planArrivalTime) &&
+                Objects.equals(planSendTime, that.planSendTime) &&
+                Objects.equals(stationStatus, that.stationStatus);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(stationName, id, loadingId, stationId, seq, planArrivalTime, planSendTime, stationStatus);
+    }
 }
