@@ -5,11 +5,9 @@ import com.daotong.springboot.service.domain.bo.LoadingStationBO;
 import com.daotong.springboot.service.domain.dto.LoadingDTO;
 import com.daotong.springboot.service.domain.dto.LoadingQueryParam;
 import com.daotong.springboot.service.domain.dto.LoadingStationDTO;
-import com.daotong.springboot.service.domain.dto.LoadingStationEnterParam;
 import com.daotong.springboot.service.domain.enums.LoadingEnum;
 import com.daotong.springboot.service.domain.enums.LoadingStationEnum;
 import com.daotong.springboot.service.domain.interfaces.LoadingService;
-import com.daotong.springboot.service.domain.model.Loading;
 import com.daotong.springboot.service.domain.vo.LoadingVO;
 import com.daotong.springboot.service.infrastructure.persistence.mybatis.mapper.LoadingMapper;
 import com.daotong.springboot.service.infrastructure.persistence.mybatis.mapper.LoadingStationMapper;
@@ -193,7 +191,7 @@ public class LoadingServiceImpl implements LoadingService {
         //重复站点校验
         int size = loadingStations.size();
         if(size !=MIN_LOADING_STATION_COUNT){
-            for (int i = size; i > 0; i--) {
+            for (int i = size-1; i > 0; i--) {
                 if(loadingStations.get(i).equals(loadingStations.get(i--))){
                     throw new RuntimeException("站点信息重复");
                 }

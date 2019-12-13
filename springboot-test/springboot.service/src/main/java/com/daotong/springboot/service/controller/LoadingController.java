@@ -2,10 +2,9 @@ package com.daotong.springboot.service.controller;
 
 import com.daotong.springboot.service.base.RestResponse;
 import com.daotong.springboot.service.domain.bo.LoadingBO;
-import com.daotong.springboot.service.domain.bo.LoadingStationBO;
 import com.daotong.springboot.service.domain.dto.LoadingDTO;
 import com.daotong.springboot.service.domain.dto.LoadingQueryParam;
-import com.daotong.springboot.service.domain.dto.LoadingStationEnterParam;
+import com.daotong.springboot.service.domain.dto.LoadingStationEnterOrLeaveParam;
 import com.daotong.springboot.service.domain.interfaces.LoadingService;
 import com.daotong.springboot.service.domain.interfaces.LoadingStationService;
 import com.daotong.springboot.service.domain.vo.LoadingVO;
@@ -15,7 +14,6 @@ import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -64,14 +62,14 @@ public class LoadingController {
     }
     @ApiOperation(httpMethod = "POST",value = "进站")
     @PostMapping("/loading_station/enter")
-    public RestResponse enterStation(LoadingStationEnterParam loadingStationEnterParam){
-        loadingStationService.enterStation(loadingStationEnterParam);
+    public RestResponse enterStation(LoadingStationEnterOrLeaveParam param){
+        loadingStationService.enterStation(param);
         return RestResponse.success();
     }
     @ApiOperation(httpMethod = "POST",value = "出站")
     @PostMapping("/loading_station/out")
-    public RestResponse leaveStation(LoadingStationEnterParam loadingStationEnterParam){
-        loadingStationService.leaveStation(loadingStationEnterParam);
+    public RestResponse leaveStation(LoadingStationEnterOrLeaveParam param){
+        loadingStationService.leaveStation(param);
         return RestResponse.success();
     }
 }

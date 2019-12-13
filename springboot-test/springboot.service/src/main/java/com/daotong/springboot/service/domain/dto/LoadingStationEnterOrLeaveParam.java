@@ -14,7 +14,7 @@ import java.util.ArrayList;
 @Setter
 @Getter
 @ApiModel(value = "进出站站点信息对象")
-public class LoadingStationEnterParam {
+public class LoadingStationEnterOrLeaveParam {
     @ApiModelProperty(value = "站点状态信息id",required = true)
     private Integer id;
     @ApiModelProperty(value = "运单id",required = true)

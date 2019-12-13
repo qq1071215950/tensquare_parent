@@ -1,15 +1,11 @@
 package com.daotong.springboot.service.domain.interfaces.impl;
 
-import com.daotong.springboot.service.domain.dto.LoadingStationDTO;
-import com.daotong.springboot.service.domain.dto.LoadingStationEnterParam;
-import com.daotong.springboot.service.domain.enums.LoadingStationEnum;
+import com.daotong.springboot.service.domain.dto.LoadingStationEnterOrLeaveParam;
 import com.daotong.springboot.service.domain.interfaces.LoadingStationService;
-import com.daotong.springboot.service.domain.model.LoadingStation;
 import com.daotong.springboot.service.infrastructure.persistence.mybatis.mapper.LoadingMapper;
 import com.daotong.springboot.service.infrastructure.persistence.mybatis.mapper.LoadingStationMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -25,7 +21,7 @@ public class LoadingStationServiceImpl implements LoadingStationService {
     private LoadingMapper loadingMapper;
 
     @Override
-    public void enterStation(LoadingStationEnterParam loadingStation) {
+    public void enterStation(LoadingStationEnterOrLeaveParam loadingStation) {
         //实际到达时间
         LocalDateTime actualArrivalTime = LocalDateTime.now();
         //运单id
@@ -54,7 +50,7 @@ public class LoadingStationServiceImpl implements LoadingStationService {
     }
 
     @Override
-    public void leaveStation(LoadingStationEnterParam loadingStation) {
+    public void leaveStation(LoadingStationEnterOrLeaveParam loadingStation) {
         //实际出发时间
         LocalDateTime actualSendTime = LocalDateTime.now();
         //运单id
