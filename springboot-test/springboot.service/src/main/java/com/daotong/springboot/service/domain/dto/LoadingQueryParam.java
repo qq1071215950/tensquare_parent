@@ -49,14 +49,4 @@ public class LoadingQueryParam implements Serializable {
     private String driverName;
     @ApiModelProperty(value = "电话")
     private String tel;
-    /**
-     * 当前页码
-     */
-    @ApiModelProperty(value = "分页查询当前页码",notes = "默认查询第一页")
-    private Integer curPage = 1;
-    /**
-     * 每页展示数量
-     */
-    @ApiModelProperty(value = "分页查询每页展示数量",notes = "默认每页展示10")
-    private Integer pageSize = 10;
 }

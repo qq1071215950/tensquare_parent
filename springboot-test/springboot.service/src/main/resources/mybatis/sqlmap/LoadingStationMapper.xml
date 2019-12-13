@@ -16,6 +16,9 @@
     <delete id="removeLoadingStations">
         delete from t_loadingstation where loading_id=#{loadingId}
     </delete>
+    <select id="getSeqs" resultType="java.lang.Integer">
+        select seq from t_loadingstation where loading_id=#{loadingId}
+    </select>
     <!--运单创建时添加站点信息-->
     <insert id="addRelations" parameterType="loadingStationDTO">
         insert into t_loadingstation (loading_id,

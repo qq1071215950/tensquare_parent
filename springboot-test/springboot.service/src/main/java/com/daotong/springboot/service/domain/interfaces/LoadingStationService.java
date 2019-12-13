@@ -13,10 +13,16 @@ import java.time.LocalDateTime;
 public interface LoadingStationService {
 
     /**
-     * 进站出站时更新时间以及站点状态
-     *
-     * @param loadingStationEnterParam
+     * 站点进站处理
+     * @param loadingStation
      */
     @Transactional(rollbackFor = Exception.class)
-    void updateStatus(LoadingStationEnterParam loadingStationEnterParam);
+    void enterStation(LoadingStationEnterParam loadingStation);
+
+    /**
+     * 站点出站处理
+     * @param loadingStation
+     */
+    @Transactional(rollbackFor = Exception.class)
+    void leaveStation(LoadingStationEnterParam loadingStation);
 }

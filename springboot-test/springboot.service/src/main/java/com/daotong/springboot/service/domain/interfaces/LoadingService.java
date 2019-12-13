@@ -1,8 +1,11 @@
 package com.daotong.springboot.service.domain.interfaces;
 
+import com.daotong.springboot.service.domain.bo.LoadingBO;
+import com.daotong.springboot.service.domain.bo.LoadingStationBO;
 import com.daotong.springboot.service.domain.dto.LoadingDTO;
 import com.daotong.springboot.service.domain.dto.LoadingQueryParam;
 import com.daotong.springboot.service.domain.dto.LoadingStationDTO;
+import com.daotong.springboot.service.domain.dto.LoadingStationEnterParam;
 import com.daotong.springboot.service.domain.vo.LoadingVO;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,7 +23,7 @@ public interface LoadingService {
      * @param loading
      * @return
      */
-    int saveLoading(LoadingDTO loading);
+    int saveLoading(LoadingBO loading);
     /**
      * 根据条件组合查询运单
      *
@@ -31,11 +34,10 @@ public interface LoadingService {
 
     /**
      * 手动设置完成运单
+     *  @param loadingId
      *
-     * @param loadingId
-     * @param completeTime
      */
-    void manualComplete(Long loadingId,LocalDateTime completeTime);
+    void manualComplete(Long loadingId);
 
     /**
      * 编辑运单
@@ -49,4 +51,5 @@ public interface LoadingService {
      * @param loadingIds
      */
     void publish(Long[] loadingIds);
+
 }

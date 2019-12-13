@@ -25,79 +25,43 @@ public class LoadingStationServiceImpl implements LoadingStationService {
     private LoadingMapper loadingMapper;
 
     @Override
-    public void updateStatus(LoadingStationEnterParam loadingStationEnterParam) {
-        //运单id
-        Long loadingId = loadingStationEnterParam.getLoadingId();
-        //当前站点序号
-        Integer seq = loadingStationEnterParam.getSeq();
-        //运单包含的所有站点序号集合
-        ArrayList<Integer> seqs = loadingStationEnterParam.getSeqs();
+    public void enterStation(LoadingStationEnterParam loadingStation) {
         //实际到达时间
-        LocalDateTime actualArrivalTime = loadingStationEnterParam.getActualArrivalTime();
-        //实际出发时间
-        LocalDateTime actualSendTime = loadingStationEnterParam.getActualSendTime();
-        //站点状态id
-        Integer loadingStationId = loadingStationEnterParam.getId();
+        LocalDateTime actualArrivalTime = LocalDateTime.now();
+        //运单id
+        Long loadingId = loadingStation.getLoadingId();
+        //站点信息id
+        Integer loadingStationId = loadingStation.getId();
+        //站点序号
+        Integer seq = loadingStation.getSeq();
+        //运单包含的所有站点序号集合
+        ArrayList<Integer> seqs = loadingStationMapper.getSeqs(loadingId);
         //首站
-        if(seq.equals(seqs.get(0))){
-            updateToLoading(actualArrivalTime,actualSendTime,loadingStationId,loadingId);
+        if (seq.equals(seqs.get(0))) {
+            loadingStationMapper.updateActualArrivalTime(actualArrivalTime, loadingStationId);
+            //更新运单状态 首站到达
+            loadingMapper.updateActualArrivalTime(loadingId, actualArrivalTime);
         }
         //末站
-        if(seq.equals(seqs.get(seqs.size()-1))){
-            updateCompleteToLoading(actualArrivalTime,loadingStationId,loadingId);
+        if (seq.equals(seqs.get(seqs.size() - 1))) {
+            loadingStationMapper.updateActualArrivalTime(actualArrivalTime, loadingStationId);
+            //更新运单状态
+            loadingMapper.updateActualCompleteTime(loadingId, actualArrivalTime);
         }
         //中途站点
-        updateLoadingStationStatus(actualArrivalTime,actualSendTime,loadingStationId);
+        loadingStationMapper.updateActualArrivalTime(actualArrivalTime, loadingStationId);
+
     }
 
-    /**
-     * 首站更新并更新到运单表
-     *
-     * @param actualArrivalTime
-     * @param actualSendTime
-     * @param loadingStationId
-     * @param loadingId
-     */
-    private void updateToLoading(LocalDateTime actualArrivalTime,
-                                        LocalDateTime actualSendTime,
-                                        Integer loadingStationId,
-                                        Long loadingId){
-        //到达
-        if (actualArrivalTime!=null) {
-            loadingStationMapper.updateActualArrivalTime(actualArrivalTime, loadingStationId);
-            loadingMapper.updateActualArrivalTime(loadingId,actualArrivalTime);
-        }
+    @Override
+    public void leaveStation(LoadingStationEnterParam loadingStation) {
+        //实际出发时间
+        LocalDateTime actualSendTime = LocalDateTime.now();
+        //运单id
+        Long loadingId = loadingStation.getLoadingId();
+        //站点信息id
+        Integer loadingStationId = loadingStation.getId();
         //出发
-            loadingStationMapper.updateActualSendTime(actualSendTime,loadingStationId);
-            loadingMapper.updateActualSendTime(loadingId,actualSendTime);
-    }
-
-    /**
-     * 中途站点更新
-     * @param actualArrivalTime
-     * @param actualSendTime
-     * @param loadingStationId
-     */
-    private void updateLoadingStationStatus(LocalDateTime actualArrivalTime,
-                              LocalDateTime actualSendTime,
-                              Integer loadingStationId){
-        //到达
-        if (actualArrivalTime!=null) {
-            loadingStationMapper.updateActualArrivalTime(actualArrivalTime, loadingStationId);
-        }
-        //出发
-        loadingStationMapper.updateActualSendTime(actualSendTime,loadingStationId);
-    }
-
-    /**
-     * 末站到达更新运单为完成状态
-     * @param actualArrivalTime
-     * @param loadingStationId
-     * @param loadingId
-     */
-    private void updateCompleteToLoading(LocalDateTime actualArrivalTime,Integer loadingStationId,Long loadingId){
-        loadingStationMapper.updateActualArrivalTime(actualArrivalTime,loadingStationId);
-        //更新运单状态
-        loadingMapper.updateActualCompleteTime(loadingId,actualArrivalTime);
+        loadingStationMapper.updateActualSendTime(actualSendTime, loadingStationId);
     }
 }

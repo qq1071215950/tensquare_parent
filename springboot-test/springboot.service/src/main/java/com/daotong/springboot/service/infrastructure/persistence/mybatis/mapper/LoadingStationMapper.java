@@ -1,10 +1,12 @@
 package com.daotong.springboot.service.infrastructure.persistence.mybatis.mapper;
 
+import com.daotong.springboot.service.domain.bo.LoadingStationBO;
 import com.daotong.springboot.service.domain.dto.LoadingStationDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 /**
  * @author Zdh 2019/12/5 16:32
@@ -48,4 +50,11 @@ public interface LoadingStationMapper {
      * @param loadingId
      */
     void removeLoadingStations(@Param(value = "loadingId") Long loadingId);
+
+    /**
+     * 通过运单获取站点序号列表
+     * @param loadingId
+     * @return
+     */
+    ArrayList<Integer> getSeqs(@Param(value = "loadingId") Long loadingId);
 }

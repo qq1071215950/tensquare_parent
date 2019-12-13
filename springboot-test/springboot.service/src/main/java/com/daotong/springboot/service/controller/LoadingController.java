@@ -1,6 +1,8 @@
 package com.daotong.springboot.service.controller;
 
 import com.daotong.springboot.service.base.RestResponse;
+import com.daotong.springboot.service.domain.bo.LoadingBO;
+import com.daotong.springboot.service.domain.bo.LoadingStationBO;
 import com.daotong.springboot.service.domain.dto.LoadingDTO;
 import com.daotong.springboot.service.domain.dto.LoadingQueryParam;
 import com.daotong.springboot.service.domain.dto.LoadingStationEnterParam;
@@ -31,8 +33,8 @@ public class LoadingController {
 
     @ApiOperation(httpMethod = "POST", value = "运单创建")
     @PostMapping("/create")
-    public RestResponse createLoading(@RequestBody LoadingDTO loadingDTO) {
-        loadingService.saveLoading(loadingDTO);
+    public RestResponse createLoading(@RequestBody LoadingBO loading) {
+        loadingService.saveLoading(loading);
         return RestResponse.success();
     }
 
@@ -44,15 +46,8 @@ public class LoadingController {
     }
     @ApiOperation(httpMethod = "GET",value = "手动完成运单接口")
     @GetMapping("/manual_complete")
-    public RestResponse manualComplete(@ApiParam(value = "运单id") @RequestParam(value = "loadingId") Long loadingId,
-                                       @ApiParam(value = "当前时间")@RequestParam(value = "currentTime") LocalDateTime currentTime){
-        loadingService.manualComplete(loadingId,currentTime);
-        return RestResponse.success();
-    }
-    @ApiOperation(httpMethod = "POST",value = "到达站点更新状态以及时间")
-    @PostMapping("/update_status")
-    public RestResponse updateArrivalTime(@RequestBody LoadingStationEnterParam loadingStationEnterParam){
-        loadingStationService.updateStatus(loadingStationEnterParam);
+    public RestResponse manualComplete(@ApiParam(value = "运单id") @RequestParam(value = "loadingId") Long loadingId){
+        loadingService.manualComplete(loadingId);
         return RestResponse.success();
     }
     @ApiOperation(httpMethod = "POST",value = "运单详情编辑")
@@ -65,6 +60,18 @@ public class LoadingController {
     @GetMapping("/publish")
     public RestResponse publishLoading(@RequestParam(value = "loadingIds") Long[] loadingIds){
         loadingService.publish(loadingIds);
+        return RestResponse.success();
+    }
+    @ApiOperation(httpMethod = "POST",value = "进站")
+    @PostMapping("/loading_station/enter")
+    public RestResponse enterStation(LoadingStationEnterParam loadingStationEnterParam){
+        loadingStationService.enterStation(loadingStationEnterParam);
+        return RestResponse.success();
+    }
+    @ApiOperation(httpMethod = "POST",value = "出站")
+    @PostMapping("/loading_station/out")
+    public RestResponse leaveStation(LoadingStationEnterParam loadingStationEnterParam){
+        loadingStationService.leaveStation(loadingStationEnterParam);
         return RestResponse.success();
     }
 }

@@ -30,7 +30,7 @@ public interface LoadingMapper {
      * @param loadingQueryParam
      * @return
      */
-    Page<LoadingVO> getByQueryParam(LoadingQueryParam loadingQueryParam);
+    List<LoadingVO> getByQueryParam(LoadingQueryParam loadingQueryParam);
 
     /**
      * 手动设置完成运单
