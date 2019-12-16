@@ -16,6 +16,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
      */
     @Override
     public void addFormatters(FormatterRegistry registry) {
+        registry.addConverter(new LoadingEnumConverter());
         registry.addConverter(new StringToDateTimeConverter());
     }
 }

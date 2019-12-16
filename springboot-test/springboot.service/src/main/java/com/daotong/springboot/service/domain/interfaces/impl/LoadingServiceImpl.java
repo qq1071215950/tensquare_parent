@@ -39,24 +39,24 @@ public class LoadingServiceImpl implements LoadingService {
     private static final int MIN_LOADING_STATION_COUNT = 1;
     @Override
     public int saveLoading(LoadingBO loading) {
-        //运单参数校验
+        // 运单参数校验
         validArgs(loading);
         LoadingDTO transfer = transfer(loading);
-        //根据时间戳生成ID作为运单ID
+        // 根据时间戳生成ID作为运单ID
         Long loadingId = getID();
         transfer.setLoadingId(loadingId);
-        //生成运单号 字母拼接时间戳
+        // 生成运单号 字母拼接时间戳
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
         String timestamp = formatter.format(LocalDateTime.now());
         String loadingNo = "L" + timestamp;
         transfer.setLoadingNo(loadingNo);
-        //设置订单状态为初始化
+        // 设置订单状态为初始化
         transfer.setLoadingStatus(LoadingEnum.ARRIVAL.getLoadingStatus());
-        //运单-站点状态信息添加
+        // 运单-站点状态信息添加
         List<LoadingStationBO> loadingStations = loading.getStations();
-        //站点信息校验
+        // 站点信息校验
         validLoadingStation(loadingStations);
-        //运单站点状态初始化并更新到数据库
+        // 运单站点状态初始化并更新到数据库
         for (int i = 0; i < loadingStations.size(); i++) {
             LoadingStationBO loadingStation = loadingStations.get(i);
             LoadingStationDTO loadingStationDTO = transfer(loadingStation);
@@ -64,11 +64,14 @@ public class LoadingServiceImpl implements LoadingService {
             loadingStationDTO.setLoadingId(loadingId);
             loadingStationMapper.addRelations(loadingStationDTO);
         }
-        //设置首站计划到达时间
+        // 设置首站计划到达时间
         transfer.setPlanArrivalTime(loadingStations.get(0).getPlanArrivalTime());
-        //设置首站出发时间
+        // 设置首站出发时间
         transfer.setPlanSendTime(loadingStations.get(0).getPlanSendTime());
         int i = loadingMapper.saveLoading(transfer);
+        if(i<1){
+            throw new RuntimeException("创建失败");
+        }
         return i;
     }
 
@@ -79,7 +82,7 @@ public class LoadingServiceImpl implements LoadingService {
         if (byQueryParam == null) {
             return null;
         }
-        //填充站点状态信息
+        // 填充站点状态信息
         for (LoadingVO loadingVO : byQueryParam) {
             loadingVO.setStations(stationMapper.getByLoadingId(loadingVO.getLoadingId()));
         }
@@ -88,7 +91,7 @@ public class LoadingServiceImpl implements LoadingService {
 
     @Override
     public void manualComplete(Long loadingId) {
-        //运单id可用校验
+        // 运单id可用校验
         LoadingQueryParam loadingQueryParam = new LoadingQueryParam();
         loadingQueryParam.setLoadingId(loadingId);
         List<LoadingVO> byQueryParam = loadingMapper.getByQueryParam(loadingQueryParam);
@@ -96,23 +99,23 @@ public class LoadingServiceImpl implements LoadingService {
             throw new RuntimeException("无效运单ID");
         }
         LocalDateTime completeTime = LocalDateTime.now();
-        //运单表修改完成状态
+        // 运单表修改完成状态
         loadingMapper.manualComplete(loadingId, completeTime);
-        //运单站点表修改
+        // 运单站点表修改
         loadingStationMapper.setManualComplete(loadingId);
     }
 
     @Override
     public void updateLoadingMsg(LoadingDTO loadingDTO) {
-        //可编辑状态校验
+        // 可编辑状态校验
         String stationStatus = loadingDTO.getLoadingStatus();
         if (!LoadingEnum.ARRIVAL.getLoadingStatus().equals(stationStatus)) {
             throw new RuntimeException("当前状态不可编辑");
         }
         loadingMapper.updateLoading(loadingDTO);
-        //站点状态信息更新
+        // 站点状态信息更新
         List<LoadingStationDTO> stations = loadingDTO.getStations();
-        //删除原有站点联系
+        // 删除原有站点联系
         loadingStationMapper.removeLoadingStations(loadingDTO.getLoadingId());
         for (LoadingStationDTO station : stations) {
             loadingStationMapper.addRelations(station);
@@ -143,7 +146,7 @@ public class LoadingServiceImpl implements LoadingService {
      * @param loading
      */
     private void validArgs(LoadingBO loading){
-        //参数校验
+        // 参数校验
         String lineName = loading.getLineName();
         if(StringUtils.isEmpty(lineName)){
             throw new RuntimeException("线路名称不能为空");
@@ -172,6 +175,11 @@ public class LoadingServiceImpl implements LoadingService {
         if(StringUtils.isEmpty(driverName)){
             throw new RuntimeException("司机姓名不能为空");
         }
+        List<LoadingStationBO> loadingStations = loading.getStations();
+        // 站点信息为空校验
+        if (loadingStations == null) {
+            throw new RuntimeException("Empty Stations");
+        }
     }
 
     /**
@@ -180,11 +188,7 @@ public class LoadingServiceImpl implements LoadingService {
      * @param loadingStations
      */
     private void validLoadingStation(List<LoadingStationBO> loadingStations){
-        //站点信息为空校验
-        if (loadingStations == null) {
-            throw new RuntimeException("Empty Stations");
-        }
-        //计划发车到达时间校验
+        // 计划发车到达时间校验
         for (LoadingStationBO loadingStation : loadingStations) {
             LocalDateTime planArrivalTime = loadingStation.getPlanArrivalTime();
             LocalDateTime planSendTime = loadingStation.getPlanSendTime();
@@ -192,7 +196,7 @@ public class LoadingServiceImpl implements LoadingService {
                 throw new RuntimeException("计划发车/到达时间不能为空");
             }
         }
-        //重复站点校验
+        // 重复站点校验
         int size = loadingStations.size();
         if(size !=MIN_LOADING_STATION_COUNT){
             for (int i = size-1; i > 0; i--) {
@@ -205,6 +209,7 @@ public class LoadingServiceImpl implements LoadingService {
 
     /**
      * 转换对象
+     *
      * @param loading
      * @return
      */

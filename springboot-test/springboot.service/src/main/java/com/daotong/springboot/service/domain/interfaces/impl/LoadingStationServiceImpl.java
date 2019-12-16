@@ -22,51 +22,51 @@ public class LoadingStationServiceImpl implements LoadingStationService {
 
     @Override
     public void enterStation(LoadingStationEnterOrLeaveParam loadingStation) {
-        //实际到达时间
+        // 实际到达时间
         LocalDateTime actualArrivalTime = LocalDateTime.now();
-        //运单id
+        // 运单id
         Long loadingId = loadingStation.getLoadingId();
-        //站点信息id
+        // 站点信息id
         Integer loadingStationId = loadingStation.getId();
-        //站点序号
+        // 站点序号
         Integer seq = loadingStation.getSeq();
-        //运单包含的所有站点序号集合
+        // 运单包含的所有站点序号集合
         ArrayList<Integer> seqs = loadingStationMapper.getSeqs(loadingId);
-        //首站
+        // 首站
         if (seq.equals(seqs.get(0))) {
             loadingStationMapper.updateActualArrivalTime(actualArrivalTime, loadingStationId);
-            //更新运单状态 首站到达
+            // 更新运单状态 首站到达
             loadingMapper.updateActualArrivalTime(loadingId, actualArrivalTime);
         }
-        //末站
+        // 末站
         if (seq.equals(seqs.get(seqs.size() - 1))) {
             loadingStationMapper.updateActualArrivalTime(actualArrivalTime, loadingStationId);
-            //更新运单状态
+            // 更新运单状态
             loadingMapper.updateActualCompleteTime(loadingId, actualArrivalTime);
         }
-        //中途站点
+        // 中途站点
         loadingStationMapper.updateActualArrivalTime(actualArrivalTime, loadingStationId);
 
     }
 
     @Override
     public void leaveStation(LoadingStationEnterOrLeaveParam loadingStation) {
-        //实际出发时间
+        // 实际出发时间
         LocalDateTime actualSendTime = LocalDateTime.now();
-        //运单id
+        // 运单id
         Long loadingId = loadingStation.getLoadingId();
-        //站点信息id
+        // 站点信息id
         Integer loadingStationId = loadingStation.getId();
         Integer seq = loadingStation.getSeq();
-        //运单包含的所有站点序号集合
+        // 运单包含的所有站点序号集合
         ArrayList<Integer> seqs = loadingStationMapper.getSeqs(loadingId);
-        //首站
+        // 首站
         if (seq.equals(seqs.get(0))) {
             loadingStationMapper.updateActualSendTime(actualSendTime, loadingStationId);
-            //更新运单状态 首站到达
+            // 更新运单状态 首站到达
             loadingMapper.updateActualSendTime(loadingId,actualSendTime);
         }
-        //出发
+        // 出发
         loadingStationMapper.updateActualSendTime(actualSendTime, loadingStationId);
     }
 }

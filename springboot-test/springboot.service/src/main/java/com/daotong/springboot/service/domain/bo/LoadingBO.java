@@ -15,10 +15,6 @@ import java.util.List;
 @Data
 @ApiModel(value = "创建订单对象")
 public class LoadingBO {
-    @ApiModelProperty(value = "运单号",dataType = "string")
-    private String loadingNo;
-    @ApiModelProperty(value = "运单id",notes = "进出站时必须有该参数")
-    private Long loadingId;
     @ApiModelProperty(value = "首发站ID",required = true)
     private Integer sendStationId;
     @ApiModelProperty(value = "末站ID",required = true)
