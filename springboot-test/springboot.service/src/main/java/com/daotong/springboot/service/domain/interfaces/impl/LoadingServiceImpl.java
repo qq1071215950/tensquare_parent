@@ -231,7 +231,6 @@ public class LoadingServiceImpl implements LoadingService {
     }
     private LoadingStationDTO transfer(LoadingStationBO loadingStation){
         LoadingStationDTO loadingStationDTO = new LoadingStationDTO();
-        loadingStationDTO.setId(loadingStation.getId());
         loadingStationDTO.setSeq(loadingStation.getSeq());
         loadingStationDTO.setStationName(loadingStation.getStationName());
         loadingStationDTO.setStationId(loadingStation.getStationId());

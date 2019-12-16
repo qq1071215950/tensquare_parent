@@ -16,10 +16,6 @@ import java.util.Objects;
 public class LoadingStationBO {
     @ApiModelProperty(value = "站点名称",required = true)
     private String stationName;
-    @ApiModelProperty(value = "站点状态信息id",required = true)
-    private Integer id;
-    @ApiModelProperty(value = "运单id",required = true)
-    private Long loadingId;
     @ApiModelProperty(value = "站点id",required = true)
     private Integer stationId;
     @ApiModelProperty(value = "站点序号",required = true)
@@ -30,26 +26,20 @@ public class LoadingStationBO {
     @ApiModelProperty(value = "计划站点发车时间",required = true)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss")
     private LocalDateTime planSendTime;
-    @ApiModelProperty(value = "站点状态")
-    private String stationStatus;
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         LoadingStationBO that = (LoadingStationBO) o;
         return Objects.equals(stationName, that.stationName) &&
-                Objects.equals(id, that.id) &&
-                Objects.equals(loadingId, that.loadingId) &&
                 Objects.equals(stationId, that.stationId) &&
                 Objects.equals(seq, that.seq) &&
                 Objects.equals(planArrivalTime, that.planArrivalTime) &&
-                Objects.equals(planSendTime, that.planSendTime) &&
-                Objects.equals(stationStatus, that.stationStatus);
+                Objects.equals(planSendTime, that.planSendTime);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(stationName, id, loadingId, stationId, seq, planArrivalTime, planSendTime, stationStatus);
+        return Objects.hash(stationName, stationId, seq, planArrivalTime, planSendTime);
     }
 }
