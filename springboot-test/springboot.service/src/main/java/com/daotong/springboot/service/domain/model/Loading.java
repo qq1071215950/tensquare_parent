@@ -15,6 +15,7 @@ import java.time.LocalDateTime;
 @ApiModel(value = "运单")
 @Data
 public class Loading {
+    @ApiModelProperty(value = "运单id")
     private Integer id;
     @ApiModelProperty(value = "运输单号")
     private String loadingNo;

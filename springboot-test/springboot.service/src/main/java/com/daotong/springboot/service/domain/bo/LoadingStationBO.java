@@ -4,6 +4,9 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -11,7 +14,9 @@ import java.util.Objects;
 /**
  * @author Zdh 2019/12/13 10:23
  */
-@Data
+@Setter
+@Getter
+@ToString
 @ApiModel(value = "新增运单站点信息对象")
 public class LoadingStationBO {
     @ApiModelProperty(value = "站点名称",required = true)
@@ -33,13 +38,12 @@ public class LoadingStationBO {
         LoadingStationBO that = (LoadingStationBO) o;
         return Objects.equals(stationName, that.stationName) &&
                 Objects.equals(stationId, that.stationId) &&
-                Objects.equals(seq, that.seq) &&
                 Objects.equals(planArrivalTime, that.planArrivalTime) &&
                 Objects.equals(planSendTime, that.planSendTime);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(stationName, stationId, seq, planArrivalTime, planSendTime);
+        return Objects.hash(stationName, stationId, planArrivalTime, planSendTime);
     }
 }

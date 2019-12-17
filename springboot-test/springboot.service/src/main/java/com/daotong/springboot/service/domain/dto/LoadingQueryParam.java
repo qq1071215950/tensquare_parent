@@ -19,8 +19,6 @@ import java.time.LocalDateTime;
 @ToString
 @ApiModel(value = "运单查询条件封装类",description = "多条件组合查询")
 public class LoadingQueryParam implements Serializable {
-    @ApiModelProperty(value = "运单id")
-    private Long loadingId;
     @ApiModelProperty(value = "运单号")
     private String loadingNo;
     @ApiModelProperty(value = "首站id")
