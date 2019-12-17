@@ -95,7 +95,7 @@
 
 
     <!--根据运单号查询站点信息和状态-->
-    <select id="getByLoadingId" parameterType="int" resultType="loadingStationDTO">
+    <select id="getByLoadingId" parameterType="Long" resultType="loadingStationDTO">
         select s.name as station_name,
         lt.id,
         lt.loading_id,

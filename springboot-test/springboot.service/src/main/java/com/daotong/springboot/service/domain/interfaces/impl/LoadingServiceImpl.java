@@ -125,6 +125,9 @@ public class LoadingServiceImpl implements LoadingService {
 
     @Override
     public void publish(Long[] loadingIds) {
+        if(loadingIds.length<1){
+            throw new RuntimeException("ID不能为空");
+        }
         for (int i = 0; i < loadingIds.length; i++) {
             loadingMapper.updatePublish(loadingIds[i]);
         }

@@ -20,7 +20,7 @@ public class LoadingVO {
 
     private String loadingNo;
 
-    private Integer loadingId;
+    private Long loadingId;
 
     private Integer sendStationId;
 

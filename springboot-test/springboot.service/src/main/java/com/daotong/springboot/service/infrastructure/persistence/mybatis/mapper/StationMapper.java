@@ -52,6 +52,6 @@ public interface StationMapper {
      * @param loadingId
      * @return
      */
-    List<LoadingStationDTO> getByLoadingId(@Param(value = "loadingId") Integer loadingId);
+    List<LoadingStationDTO> getByLoadingId(@Param(value = "loadingId") Long loadingId);
 
 }

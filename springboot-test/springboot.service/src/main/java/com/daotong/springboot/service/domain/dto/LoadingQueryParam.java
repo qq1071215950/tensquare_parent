@@ -36,7 +36,7 @@ public class LoadingQueryParam implements Serializable {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss")
     private LocalDateTime planCompleteTime;
     @ApiModelProperty(value = "运单状态")
-    private LoadingEnum loadingEnum;
+    private String loadingEnum;
     @ApiModelProperty(value = "商家")
     private String saler;
     @ApiModelProperty(value = "运输商")

@@ -62,7 +62,7 @@
               from t_loading
               <where>
                   <if test="loadingNo!=null and loadingNo!=''">
-                      loading_no=#{loadingNo}
+                      and loading_no=#{loadingNo}
                   </if>
                   <if test="sendStationId!=null">
                       and send_station_id=#{sendStationId}
