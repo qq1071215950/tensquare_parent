@@ -132,7 +132,7 @@
         <if test="saler!=null and saler!=''">
             saler=#{saler},
         </if>
-        <if test="temperatureLayer!=null and temperature_layer!=''">
+        <if test="temperatureLayer!=null and temperatureLayer!=''">
             temperature_layer=#{temperatureLayer},
         </if>
         <if test="forwarder!=null and forwarder!=''">
@@ -147,8 +147,8 @@
         <if test="driverName!=null and driverName!=''">
             driver_name=#{driverName},
         </if>
-        <if test="transferType!=null">
-            transfer_type=#{transferType},
+        <if test="tel!=null">
+            tel=#{tel},
         </if>
         where id=#{loadingId}
     </update>
