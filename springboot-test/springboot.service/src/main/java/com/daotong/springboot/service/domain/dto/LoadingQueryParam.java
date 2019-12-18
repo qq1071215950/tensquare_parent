@@ -17,8 +17,10 @@ import java.time.LocalDateTime;
 @Setter
 @Getter
 @ToString
-@ApiModel(value = "运单查询条件封装类",description = "多条件组合查询")
+@ApiModel(value = "运单查询条件封装类", description = "多条件组合查询")
 public class LoadingQueryParam implements Serializable {
+
+    private Long loadingId;
     @ApiModelProperty(value = "运单号")
     private String loadingNo;
     @ApiModelProperty(value = "首站id")
@@ -28,10 +30,10 @@ public class LoadingQueryParam implements Serializable {
     @ApiModelProperty(value = "线路名称")
     private String lineName;
     @ApiModelProperty(value = "计划首站发车时间")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime planSendTime;
     @ApiModelProperty(value = "计划完成时间")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime planCompleteTime;
     @ApiModelProperty(value = "运单状态")
     private String loadingEnum;

@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50549
 File Encoding         : 65001
 
-Date: 2019-12-12 16:33:47
+Date: 2019-12-18 09:09:27
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -20,7 +20,7 @@ SET FOREIGN_KEY_CHECKS=0;
 -- ----------------------------
 DROP TABLE IF EXISTS `t_loading`;
 CREATE TABLE `t_loading` (
-  `id` int(15) NOT NULL,
+  `id` bigint(16) NOT NULL,
   `loading_no` varchar(32) NOT NULL COMMENT '运输单号',
   `send_station_id` int(11) NOT NULL COMMENT '首发站点',
   `end_station_id` int(11) NOT NULL COMMENT '末站点',
@@ -34,7 +34,7 @@ CREATE TABLE `t_loading` (
   `actual_arrival_time` datetime DEFAULT NULL COMMENT '实际到达首站点时间',
   `actual_send_time` datetime DEFAULT NULL COMMENT '首站点实际发车时间',
   `actual_complete_time` datetime DEFAULT NULL COMMENT '实际完成时间',
-  `loading_state` varchar(10) NOT NULL COMMENT '运单状态',
+  `loading_state` varchar(16) NOT NULL COMMENT '运单状态',
   `saler` varchar(10) NOT NULL COMMENT '商家',
   `forwarder` varchar(32) NOT NULL COMMENT '运输商',
   `plate_no` varchar(10) NOT NULL COMMENT '车牌',
@@ -53,6 +53,7 @@ CREATE TABLE `t_loading` (
 -- Records of t_loading
 -- ----------------------------
 INSERT INTO `t_loading` VALUES ('1', '1113110851', '1', '2', '', 'jx-hn', null, '2', '2019-12-06 14:41:24', '2019-12-06 16:41:21', '2019-12-06 15:41:42', '2019-12-06 16:41:52', '2019-12-06 16:41:55', '2019-12-11 08:31:10', 'manual', 'dd', 'dd', '111', '10', '张', '111', null, null, null, null, null);
+INSERT INTO `t_loading` VALUES ('20191213151430', 'L20191213151430', '1', '2', '合同', 'xx-xx', null, '2', '2019-12-12 07:53:54', '2019-12-12 07:54:11', '2019-12-12 07:47:50', '2019-12-18 00:53:46', '2019-12-18 00:57:13', '2019-12-17 08:30:43', 'transporting', '盒马', '货拉拉', '123', '常温', '周', '13340165029', '0', null, null, null, null);
 
 -- ----------------------------
 -- Table structure for t_loadingstation
@@ -60,9 +61,9 @@ INSERT INTO `t_loading` VALUES ('1', '1113110851', '1', '2', '', 'jx-hn', null, 
 DROP TABLE IF EXISTS `t_loadingstation`;
 CREATE TABLE `t_loadingstation` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `loading_id` int(15) NOT NULL COMMENT '运单id',
+  `loading_id` bigint(16) NOT NULL COMMENT '运单id',
   `station_id` int(11) NOT NULL COMMENT '站点id',
-  `station_status` varchar(16) DEFAULT NULL COMMENT '站点状态',
+  `station_status` char(32) DEFAULT NULL COMMENT '站点状态',
   `seq` int(11) DEFAULT NULL,
   `plan_arrival_time` datetime NOT NULL COMMENT '计划到达时间',
   `plan_send_time` datetime NOT NULL COMMENT '计划发车时间',
@@ -73,13 +74,15 @@ CREATE TABLE `t_loadingstation` (
   `gmt_create` datetime DEFAULT NULL,
   `gmt_modified` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_loadingstation
 -- ----------------------------
 INSERT INTO `t_loadingstation` VALUES ('1', '1', '1', 'arrived', '1', '2019-12-06 14:45:11', '2019-12-06 14:45:13', '2019-12-06 14:45:15', '2019-12-06 14:45:18', null, null, null, null);
 INSERT INTO `t_loadingstation` VALUES ('2', '1', '2', 'arrived', '2', '2019-12-06 15:45:52', '2019-12-06 15:45:57', '2019-12-06 15:46:00', '2019-12-06 15:46:03', null, null, null, null);
+INSERT INTO `t_loadingstation` VALUES ('25', '20191213151430', '1', 'start', '1', '2019-12-12 07:53:54', '2019-12-12 07:54:11', '2019-12-18 00:53:46', '2019-12-18 00:57:13', null, null, null, null);
+INSERT INTO `t_loadingstation` VALUES ('26', '20191213151430', '2', 'arrived', '2', '2019-12-12 07:53:54', '2019-12-12 07:54:11', null, null, null, null, null, null);
 
 -- ----------------------------
 -- Table structure for t_station

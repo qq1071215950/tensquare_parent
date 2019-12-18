@@ -62,13 +62,13 @@ public class LoadingController {
     }
     @ApiOperation(httpMethod = "POST",value = "进站")
     @PostMapping("/loading_station/enter")
-    public RestResponse enterStation(LoadingStationEnterOrLeaveParam param){
+    public RestResponse enterStation(@RequestBody LoadingStationEnterOrLeaveParam param){
         loadingStationService.enterStation(param);
         return RestResponse.success();
     }
     @ApiOperation(httpMethod = "POST",value = "出站")
     @PostMapping("/loading_station/out")
-    public RestResponse leaveStation(LoadingStationEnterOrLeaveParam param){
+    public RestResponse leaveStation(@RequestBody LoadingStationEnterOrLeaveParam param){
         loadingStationService.leaveStation(param);
         return RestResponse.success();
     }

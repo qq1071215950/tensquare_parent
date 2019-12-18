@@ -4,6 +4,7 @@ import com.daotong.springboot.service.domain.dto.LoadingStationEnterOrLeaveParam
 import com.daotong.springboot.service.domain.interfaces.LoadingStationService;
 import com.daotong.springboot.service.infrastructure.persistence.mybatis.mapper.LoadingMapper;
 import com.daotong.springboot.service.infrastructure.persistence.mybatis.mapper.LoadingStationMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,7 @@ import java.util.ArrayList;
  * @author Zdh 2019/12/9 11:40
  */
 @Service
+@Slf4j
 public class LoadingStationServiceImpl implements LoadingStationService {
     @Autowired(required = false)
     private LoadingStationMapper loadingStationMapper;
@@ -32,6 +34,7 @@ public class LoadingStationServiceImpl implements LoadingStationService {
         Integer seq = loadingStation.getSeq();
         // 运单包含的所有站点序号集合
         ArrayList<Integer> seqs = loadingStationMapper.getSeqs(loadingId);
+        log.info(seqs.toString());
         // 首站
         if (seq.equals(seqs.get(0))) {
             loadingStationMapper.updateActualArrivalTime(actualArrivalTime, loadingStationId);
