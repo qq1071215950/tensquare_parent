@@ -8,6 +8,7 @@ import com.daotong.springboot.service.domain.dto.LoadingStationEnterOrLeaveParam
 import com.daotong.springboot.service.domain.interfaces.LoadingService;
 import com.daotong.springboot.service.domain.interfaces.LoadingStationService;
 import com.daotong.springboot.service.domain.vo.LoadingVO;
+import com.daotong.springboot.service.domain.vo.NewLoadingVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -39,7 +40,7 @@ public class LoadingController {
     @ApiOperation(httpMethod = "POST", value = "根据条件查询运单")
     @PostMapping("/query_by_condition")
     public RestResponse getByQueryParam(@RequestBody LoadingQueryParam loadingQueryParam) {
-        List<LoadingVO> byQueryParam = loadingService.getByQueryParam(loadingQueryParam);
+        List<NewLoadingVO> byQueryParam = loadingService.getByQueryParam(loadingQueryParam);
         return RestResponse.single(byQueryParam);
     }
     @ApiOperation(httpMethod = "GET",value = "手动完成运单接口")

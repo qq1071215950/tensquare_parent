@@ -9,10 +9,12 @@ import com.daotong.springboot.service.domain.enums.LoadingEnum;
 import com.daotong.springboot.service.domain.enums.LoadingStationEnum;
 import com.daotong.springboot.service.domain.interfaces.LoadingService;
 import com.daotong.springboot.service.domain.vo.LoadingVO;
+import com.daotong.springboot.service.domain.vo.NewLoadingVO;
 import com.daotong.springboot.service.infrastructure.persistence.mybatis.mapper.LoadingMapper;
 import com.daotong.springboot.service.infrastructure.persistence.mybatis.mapper.LoadingStationMapper;
 import com.daotong.springboot.service.infrastructure.persistence.mybatis.mapper.StationMapper;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -20,6 +22,7 @@ import org.springframework.util.StringUtils;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author Zdh 2019/12/6 17:52
@@ -76,17 +79,28 @@ public class LoadingServiceImpl implements LoadingService {
     }
 
     @Override
-    public List<LoadingVO> getByQueryParam(LoadingQueryParam loadingQueryParam) {
+    public List<NewLoadingVO> getByQueryParam(LoadingQueryParam loadingQueryParam) {
         log.info(loadingQueryParam.toString());
         List<LoadingVO> byQueryParam = loadingMapper.getByQueryParam(loadingQueryParam);
         if (byQueryParam == null) {
             return null;
         }
+        List<NewLoadingVO> newLoadingVOS = byQueryParam
+                .stream().map(item ->{
+                    NewLoadingVO newLoadingVO = new NewLoadingVO();
+                    BeanUtils.copyProperties(item,newLoadingVO);
+                    if (item.getPublish() == 1){
+                        newLoadingVO.setPublish(true);
+                    }else {
+                        newLoadingVO.setPublish(false);
+                    }
+                    return newLoadingVO;
+                }).collect(Collectors.toList());
         // 填充站点状态信息
-        for (LoadingVO loadingVO : byQueryParam) {
+        for (NewLoadingVO loadingVO : newLoadingVOS) {
             loadingVO.setStations(stationMapper.getByLoadingId(loadingVO.getLoadingId()));
         }
-        return byQueryParam;
+        return newLoadingVOS;
     }
 
     @Override

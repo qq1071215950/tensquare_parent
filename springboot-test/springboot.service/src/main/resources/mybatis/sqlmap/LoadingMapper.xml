@@ -55,6 +55,8 @@
             loading_state as loading_status,
             price_quote,
             transfer_type,
+            publish,
+            station_count,
             forwarder,
             plate_no,
             driver_name,

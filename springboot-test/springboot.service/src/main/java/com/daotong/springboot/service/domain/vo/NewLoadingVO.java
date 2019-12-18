@@ -1,8 +1,6 @@
 package com.daotong.springboot.service.domain.vo;
 
 import com.daotong.springboot.service.domain.dto.LoadingStationDTO;
-import com.daotong.springboot.service.domain.enums.LoadingEnum;
-import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -16,7 +14,7 @@ import java.util.List;
 @Setter
 @Getter
 @ToString
-public class LoadingVO {
+public class NewLoadingVO {
 
     private String loadingNo;
 
@@ -58,7 +56,7 @@ public class LoadingVO {
 
     private String tel;
 
-    private Integer publish;
+    private boolean publish;
 
     private List<LoadingStationDTO> stations;
 }

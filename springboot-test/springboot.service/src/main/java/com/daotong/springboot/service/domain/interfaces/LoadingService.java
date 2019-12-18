@@ -4,6 +4,7 @@ import com.daotong.springboot.service.domain.bo.LoadingBO;
 import com.daotong.springboot.service.domain.dto.LoadingDTO;
 import com.daotong.springboot.service.domain.dto.LoadingQueryParam;
 import com.daotong.springboot.service.domain.vo.LoadingVO;
+import com.daotong.springboot.service.domain.vo.NewLoadingVO;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -26,7 +27,7 @@ public interface LoadingService {
      * @param loadingQueryParam
      * @return
      */
-    List<LoadingVO> getByQueryParam(LoadingQueryParam loadingQueryParam);
+    List<NewLoadingVO> getByQueryParam(LoadingQueryParam loadingQueryParam);
 
     /**
      * 手动设置完成运单
