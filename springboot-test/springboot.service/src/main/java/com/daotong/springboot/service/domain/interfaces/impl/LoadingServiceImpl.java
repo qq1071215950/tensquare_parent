@@ -130,8 +130,10 @@ public class LoadingServiceImpl implements LoadingService {
         // 站点状态信息更新
         List<LoadingStationDTO> stations = loadingDTO.getStations();
         // 删除原有站点联系
+        Long loadingId = loadingDTO.getLoadingId();
         loadingStationMapper.removeLoadingStations(loadingDTO.getLoadingId());
         for (LoadingStationDTO station : stations) {
+            station.setLoadingId(loadingId);
             loadingStationMapper.addRelations(station);
         }
 

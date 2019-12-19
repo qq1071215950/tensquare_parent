@@ -148,7 +148,7 @@
             driver_name=#{driverName},
         </if>
         <if test="tel!=null">
-            tel=#{tel},
+            tel=#{tel}
         </if>
         where id=#{loadingId}
     </update>
