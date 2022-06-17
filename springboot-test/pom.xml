@@ -30,7 +30,7 @@
         <spring-boot-swagger-starter.version>2.1.1.RELEASE</spring-boot-swagger-starter.version>
         <mybatis-spring.version>2.0.1</mybatis-spring.version>
 
-        <fastjson.version>1.2.50</fastjson.version>
+        <fastjson.version>1.2.83</fastjson.version>
         <commons-codec.version>1.12</commons-codec.version>
         <apache.version>3.7</apache.version>
     </properties>
